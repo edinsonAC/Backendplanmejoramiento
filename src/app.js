@@ -1,12 +1,14 @@
 'use strict'
 
-var express = require('express');
-var bodyParser = require('body-parser');
-var app = express();
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
 
 //Middlewares
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+
+const academic_program_routes = require('./routes/academic_program_routes')
 
 //CORS
 // Configurar cabeceras y cors
@@ -18,6 +20,10 @@ app.use((req, res, next) => {
     next();
 });
 
+//Añadir prefijos a rutas
+
+app.use('/',
+    academic_program_routes)
 
 module.exports = app;
 
