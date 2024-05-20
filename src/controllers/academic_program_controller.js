@@ -1,6 +1,22 @@
 const ProgramaAcademicoModel = require('../models/academic_program_model')
 
-// Controller method to create a new todo
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     ProgramaAcademico:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: number
+ *           example: 1
+ *         pracNombre:
+ *           type: string
+ *           example: Ingenieria de Sistemas
+ *         pracCodigo:
+ *           type: string
+ *           example: 115
+ */
 const createAcademicProgram = async (req, res) => {
     const {pracNombre, pracCodigo} = req.body;
     try {
@@ -10,6 +26,7 @@ const createAcademicProgram = async (req, res) => {
         });
         res.status(201).json(newTodo);
     } catch (error) {
+        console.log("errrpr ", error)
         res.status(500).json({error: 'Internal Server Error'});
     }
 };
