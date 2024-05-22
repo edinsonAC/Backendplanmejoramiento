@@ -13,12 +13,12 @@ const Factor = sequelizeDb.define(
         factNombre: {
             type: DataTypes.STRING,
             allowNull: false,
-            field: 'prac_nombre',
+            field: 'fact_nombre',
         },
         tifaId: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            field: 'prac_codigo',
+            field: 'tifa_id',
         },
         createdAt: {
             type: DataTypes.NOW,
