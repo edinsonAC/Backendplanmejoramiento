@@ -1,22 +1,22 @@
 const {DataTypes} = require('sequelize');
 const {sequelizeDb} = require('../config/database');
 
-const ProgramaAcademico = sequelizeDb.define(
-    'ProgramaAcademico',
+const Factor = sequelizeDb.define(
+    'Factor',
     {
-        pracId: {
+        factId: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-            field: 'prac_id',
+            field: 'fact_id',
         },
-        pracNombre: {
+        factNombre: {
             type: DataTypes.STRING,
             allowNull: false,
             field: 'prac_nombre',
         },
-        pracCodigo: {
-            type: DataTypes.STRING,
+        tifaId: {
+            type: DataTypes.INTEGER,
             allowNull: false,
             field: 'prac_codigo',
         },
@@ -31,9 +31,8 @@ const ProgramaAcademico = sequelizeDb.define(
     },
     {
         // Other model options go here
-        tableName: 'programa_academico',
-        timestamps: false
+        tableName: 'factor',
     },
 );
 
-module.exports = ProgramaAcademico;
+module.exports = Factor;
