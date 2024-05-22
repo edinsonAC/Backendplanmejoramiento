@@ -20,6 +20,14 @@ const ProgramaAcademico = sequelizeDb.define(
             allowNull: false,
             field: 'prac_codigo',
         },
+        createdAt: {
+            type: DataTypes.NOW,
+            field: 'created_at',
+        },
+        updatedAt: {
+            type: DataTypes.NOW,
+            field: 'updated_at',
+        },
     },
     {
         // Other model options go here

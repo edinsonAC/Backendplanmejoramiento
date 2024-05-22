@@ -45,7 +45,7 @@ const academicProgramById = async (req, res) => {
     }
 };
 
-// Controller method to get a todo by ID
+
 const getAcademicProgramAll = async (req, res) => {
     try {
         const todo = await ProgramaAcademicoModel.findAll();
