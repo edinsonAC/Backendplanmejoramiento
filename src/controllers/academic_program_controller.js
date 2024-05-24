@@ -1,22 +1,5 @@
 const ProgramaAcademicoModel = require('../models/academic_program_model')
 
-/**
- * @openapi
- * components:
- *   schemas:
- *     ProgramaAcademico:
- *       type: object
- *       properties:
- *         id:
- *           type: number
- *           example: 1
- *         pracNombre:
- *           type: string
- *           example: Ingenieria de Sistemas
- *         pracCodigo:
- *           type: string
- *           example: 115
- */
 const createAcademicProgram = async (req, res) => {
     const {pracNombre, pracCodigo} = req.body;
     try {

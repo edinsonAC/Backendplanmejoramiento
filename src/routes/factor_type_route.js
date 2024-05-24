@@ -4,6 +4,20 @@ const express = require('express')
 const FactorTypeController = require('../controllers/factor_type_controller')
 const router = express.Router()
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     TipoFactor:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: number
+ *           example: 1
+ *         tifaNombre:
+ *           type: string
+ *           example: Institucional
+ */
 
 /**
  * @openapi
@@ -30,9 +44,7 @@ const router = express.Router()
  *                   type: string
  *                   example: OK
  *                 data:
- *                   type: array
- *                   items:
- *                     type: object
+ *                   $ref: '#/components/schemas/TipoFactor'
  */
 router.get('/factor_type/:id', FactorTypeController.factorTypeById)
 
@@ -56,7 +68,7 @@ router.get('/factor_type/:id', FactorTypeController.factorTypeById)
  *                 data:
  *                   type: array
  *                   items:
- *                     type: object
+ *                     $ref: '#/components/schemas/TipoFactor'
  */
 router.get('/factor_type', FactorTypeController.getFactorTypeAll)
 
@@ -86,14 +98,7 @@ router.get('/factor_type', FactorTypeController.getFactorTypeAll)
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: number
- *                   example: 1
- *                 tifaNombre:
- *                   type: string
- *                   example: "Institucional"
+ *               $ref: '#/components/schemas/TipoFactor'
  *       500:
  *         description: Error interno del servidor
  *         content:
@@ -140,14 +145,7 @@ router.post('/factor_type', FactorTypeController.createFactorType)
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: number
- *                   example: 1
- *                 tifaNombre:
- *                   type: string
- *                   example: "Institucional"
+ *               $ref: '#/components/schemas/TipoFactor'
  *       500:
  *         description: Error interno del servidor
  *         content:
@@ -161,6 +159,5 @@ router.post('/factor_type', FactorTypeController.createFactorType)
  */
 router.put('/factor_type/:id', FactorTypeController.updateFactorType)
 router.delete('/factor_type/:id', FactorTypeController.deleteAcademicProgram)
-
 
 module.exports = router

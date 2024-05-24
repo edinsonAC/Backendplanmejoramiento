@@ -6,6 +6,26 @@ const router = express.Router()
 
 
 /**
+ * @swagger
+ * components:
+ *   schemas:
+ *     ProgramaAcademico:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: number
+ *           example: 1
+ *         pracNombre:
+ *           type: string
+ *           example: Ingenieria de Sistemasss
+ *         pracCodigo:
+ *           type: string
+ *           example: 115
+ */
+
+
+
+/**
  * @openapi
  * /academic_program/{id}:
  *   get:
@@ -30,9 +50,7 @@ const router = express.Router()
  *                   type: string
  *                   example: OK
  *                 data:
- *                   type: array
- *                   items:
- *                     type: object
+ *                   $ref: '#/components/schemas/ProgramaAcademico'
  */
 router.get('/academic_program/:id', AcademicProgramController.academicProgramById)
 
@@ -56,7 +74,7 @@ router.get('/academic_program/:id', AcademicProgramController.academicProgramByI
  *                 data:
  *                   type: array
  *                   items:
- *                     type: object
+ *                     $ref: '#/components/schemas/ProgramaAcademico'
  */
 router.get('/academic_program', AcademicProgramController.getAcademicProgramAll)
 
@@ -91,17 +109,7 @@ router.get('/academic_program', AcademicProgramController.getAcademicProgramAll)
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: number
- *                   example: 1
- *                 pracNombre:
- *                   type: string
- *                   example: "Ingenieria de Sistemas"
- *                 pracCodigo:
- *                   type: string
- *                   example: "115"
+ *               $ref: '#/components/schemas/ProgramaAcademico'
  *       500:
  *         description: Error interno del servidor
  *         content:
@@ -153,17 +161,7 @@ router.post('/academic_program', AcademicProgramController.createAcademicProgram
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: number
- *                   example: 1
- *                 pracNombre:
- *                   type: string
- *                   example: "Ingenieria de Sistemas"
- *                 pracCodigo:
- *                   type: string
- *                   example: "115"
+ *               $ref: '#/components/schemas/ProgramaAcademico'
  *       500:
  *         description: Error interno del servidor
  *         content:

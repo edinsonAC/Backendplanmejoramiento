@@ -8,9 +8,10 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-const academic_program_routes = require('./routes/academic_program_routes')
-const factor_type_routes = require('./routes/factor_type_route')
-const factor_routes = require('./routes/factor_route')
+const academicProgramRoutes = require('./routes/academic_program_routes')
+const factorTypeRoutes = require('./routes/factor_type_route')
+const factorRoutes = require('./routes/factor_route')
+const strategicAxisRoute = require('./routes/strategic_axis_route')
 
 //CORS
 // Configurar cabeceras y cors
@@ -25,7 +26,7 @@ app.use((req, res, next) => {
 //Añadir prefijos a rutas
 
 app.use('/',
-    academic_program_routes, factor_type_routes, factor_routes)
+    academicProgramRoutes, factorTypeRoutes, factorRoutes, strategicAxisRoute)
 
 module.exports = app;
 

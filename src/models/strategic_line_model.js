@@ -1,27 +1,32 @@
 const {DataTypes} = require('sequelize');
 const {sequelizeDb} = require('../config/database');
 
-const Factor = sequelizeDb.define(
+const LineaEstrategica = sequelizeDb.define(
     'factor',
     {
-        factId: {
+        liesId: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-            field: 'fact_id',
+            field: 'lies_id',
         },
-        factNombre: {
+        liesNombre: {
             type: DataTypes.STRING,
             allowNull: false,
-            field: 'fact_nombre',
+            field: 'lies_nombre',
         },
-        tifaId: {
+        liesObjetivos: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            field: 'lies_objetivos',
+        },
+        ejesId: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            field: 'tifa_id',
+            field: 'ejes_id',
             references: {
-                model: 'TipoFactor',
-                key: 'tifa_id'
+                model: 'EjeEstrategico',
+                key: 'ejes_id'
             }
         },
         createdAt: {
@@ -36,9 +41,8 @@ const Factor = sequelizeDb.define(
         },
     },
     {
-        // Other model options go here
-        tableName: 'factor',
+        tableName: 'linea_estrategica',
     },
 );
 
-module.exports = Factor;
+module.exports = LineaEstrategica;

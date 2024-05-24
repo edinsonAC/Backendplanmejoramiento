@@ -1,27 +1,27 @@
 const {DataTypes} = require('sequelize');
 const {sequelizeDb} = require('../config/database');
 
-const Factor = sequelizeDb.define(
-    'factor',
+const ProgramaInversion = sequelizeDb.define(
+    'programaInversion',
     {
-        factId: {
+        prinId: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-            field: 'fact_id',
+            field: 'prin_id',
         },
-        factNombre: {
+        prinNombre: {
             type: DataTypes.STRING,
             allowNull: false,
-            field: 'fact_nombre',
+            field: 'prin_nombre',
         },
-        tifaId: {
+        liesId: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            field: 'tifa_id',
+            field: 'ejes_id',
             references: {
-                model: 'TipoFactor',
-                key: 'tifa_id'
+                model: 'EjeEstrategico',
+                key: 'lies_id'
             }
         },
         createdAt: {
@@ -36,9 +36,8 @@ const Factor = sequelizeDb.define(
         },
     },
     {
-        // Other model options go here
-        tableName: 'factor',
+        tableName: 'programa_inversion',
     },
 );
 
-module.exports = Factor;
+module.exports = ProgramaInversion;

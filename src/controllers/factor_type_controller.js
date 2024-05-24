@@ -1,23 +1,9 @@
-const TipoFactorModel = require('../models/factor_type_model')
+const {TipoFactor} = require('../models/associations_model')
 
-/**
- * @openapi
- * components:
- *   schemas:
- *     TipoFactor:
- *       type: object
- *       properties:
- *         id:
- *           type: number
- *           example: 1
- *         tifaNombre:
- *           type: string
- *           example: Institucional
- */
 const createFactorType = async (req, res) => {
     const {tifaNombre} = req.body;
     try {
-        const newTipoFactor = await TipoFactorModel.create({
+        const newTipoFactor = await TipoFactor.create({
             tifaNombre
         });
         res.status(201).json(newTipoFactor);
@@ -30,7 +16,7 @@ const createFactorType = async (req, res) => {
 const factorTypeById = async (req, res) => {
     const id = req.params.id;
     try {
-        const todo = await TipoFactorModel.findByPk(id);
+        const todo = await TipoFactor.findByPk(id);
         if (todo) {
             res.json(todo);
         } else {
@@ -44,7 +30,7 @@ const factorTypeById = async (req, res) => {
 
 const getFactorTypeAll = async (req, res) => {
     try {
-        const todo = await TipoFactorModel.findAll();
+        const todo = await TipoFactor.findAll();
         if (todo) {
             res.json(todo);
         } else {
@@ -59,7 +45,7 @@ const updateFactorType = async (req, res) => {
     const id = req.params.id;
     const {tifaNombre} = req.body;
     try {
-        const todo = await TipoFactorModel.findByPk(id);
+        const todo = await TipoFactor.findByPk(id);
         if (todo) {
             todo.tifaNombre = tifaNombre;
             await todo.save();
@@ -75,7 +61,7 @@ const updateFactorType = async (req, res) => {
 const deleteAcademicProgram = async (req, res) => {
     const id = req.params.id;
     try {
-        const todo = await TipoFactorModel.findByPk(id);
+        const todo = await TipoFactor.findByPk(id);
         if (todo) {
             await todo.destroy();
             res.json(todo);

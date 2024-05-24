@@ -1,35 +1,35 @@
 'use strict'
 
 const express = require('express')
-const FactorController = require('../controllers/factor_controller')
+const StrategicAxisController = require('../controllers/strategic_axis_controller')
 const router = express.Router()
 
 /**
  * @openapi
  * components:
  *   schemas:
- *     Factor:
+ *     EjeEstrategico:
  *       type: object
  *       properties:
- *         id:
+ *         ejesId:
  *           type: number
  *           example: 1
- *         factNombre:
+ *         ejesNombre:
  *           type: string
- *           example: Institucional
+ *           example: Eje ejemplo
  */
 
 /**
  * @openapi
- * /factor/{id}:
+ * /strategic_axis/{id}:
  *   get:
  *     tags:
- *       - Factores
+ *       - Ejes estrategicos
  *     parameters:
  *      - name: id
  *        in: path
  *        required: true
- *        description: ID del factor
+ *        description: ID del eje estrategico
  *        schema:
  *        type: number
  *     responses:
@@ -44,16 +44,16 @@ const router = express.Router()
  *                   type: string
  *                   example: OK
  *                 data:
- *                   $ref: '#/components/schemas/Factor'
+ *                   $ref: '#/components/schemas/EjeEstrategico'
  */
-router.get('/factor/:id', FactorController.factorById)
+router.get('/strategic_axis/:id', StrategicAxisController.strategicAxisById)
 
 /**
  * @openapi
- * /factor:
+ * /strategic_axis:
  *   get:
  *     tags:
- *       - Factores
+ *       - Ejes estrategicos
  *     responses:
  *       200:
  *         description: OK
@@ -68,16 +68,16 @@ router.get('/factor/:id', FactorController.factorById)
  *                 data:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/Factor'
+ *                     $ref: '#/components/schemas/EjeEstrategico'
  */
-router.get('/factor', FactorController.getFactorAll)
+router.get('/strategic_axis', StrategicAxisController.getStrategicAxisAll)
 
 /**
  * @openapi
- * /factor:
+ * /strategic_axis:
  *   post:
  *     tags:
- *       - Factores
+ *       - Ejes estrategicos
  *     requestBody:
  *       description: Datos necesarios para crear un nuevo ítem
  *       required: true
@@ -86,24 +86,19 @@ router.get('/factor', FactorController.getFactorAll)
  *           schema:
  *             type: object
  *             properties:
- *               factNombre:
+ *               ejesNombre:
  *                 type: string
- *                 example: "Prueba Factor"
- *                 description: "El nombre del factor"
- *               tifaId:
- *                 type: number
- *                 example: 1
- *                 description: "El id del tipo factor"
+ *                 example: "Prueba eje"
+ *                 description: "El nombre del eje"
  *             required:
- *               - factNombre
- *               - tifaId
+ *               - ejesNombre
  *     responses:
  *       201:
  *         description: OK
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Factor'
+ *               $ref: '#/components/schemas/EjeEstrategico'
  *       500:
  *         description: Error interno del servidor
  *         content:
@@ -115,19 +110,19 @@ router.get('/factor', FactorController.getFactorAll)
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/factor', FactorController.createFactor)
+router.post('/strategic_axis', StrategicAxisController.createStrategicAxis)
 
 /**
  * @openapi
- * /factor/{id}:
+ * /strategic_axis/{id}:
  *   put:
  *     tags:
- *       - Factores
+ *       - Ejes estrategicos
  *     parameters:
  *      - name: id
  *        in: path
  *        required: true
- *        description: ID del factor
+ *        description: ID del eje
  *        schema:
  *        type: number
  *     requestBody:
@@ -138,24 +133,19 @@ router.post('/factor', FactorController.createFactor)
  *           schema:
  *             type: object
  *             properties:
- *               factNombre:
+ *               ejesNombre:
  *                 type: string
- *                 example: "Prueba factor"
- *                 description: "El nombre del factor"
- *               tifaId:
- *                 type: number
- *                 example: 1
- *                 description: "El id del tipo factor"
+ *                 example: "Prueba eje"
+ *                 description: "El nombre del eje"
  *             required:
- *               - factNombre
- *               - tifaId
+ *               - ejesNombre
  *     responses:
  *       200:
  *         description: OK
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Factor'
+ *               $ref: '#/components/schemas/EjeEstrategico'
  *       500:
  *         description: Error interno del servidor
  *         content:
@@ -167,7 +157,6 @@ router.post('/factor', FactorController.createFactor)
  *                   type: string
  *                   example: "Error al editar el ítem"
  */
-router.put('/factor/:id', FactorController.updateFactor)
-
+router.put('/strategic_axis/:id', StrategicAxisController.updateStrategicAxis)
 
 module.exports = router
