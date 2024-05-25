@@ -40,6 +40,16 @@ const options = {
                 description: 'Servidor de producción',
             },
         ],
+        components: {
+            securitySchemes: {
+                Authorization: {
+                    type: "http",
+                    scheme: "bearer",
+                    bearerFormat: "JWT",
+                    value: "Bearer <JWT token here>"
+                }
+            }
+        }
     },
     apis: ['./src/routes/*.js'], // files containing annotations as above
 };

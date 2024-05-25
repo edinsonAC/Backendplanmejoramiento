@@ -2,6 +2,7 @@
 
 const express = require('express')
 const InvestmentProgramController = require('../controllers/investment_program_controller')
+const authenticateJWT = require('../middleware/jwt_guard')
 const router = express.Router()
 
 /**
@@ -49,7 +50,7 @@ const router = express.Router()
  *                 data:
  *                   $ref: '#/components/schemas/ProgramaInversion'
  */
-router.get('/investment_program/:id', InvestmentProgramController.investmentProgramById)
+router.get('/investment_program/:id', authenticateJWT, InvestmentProgramController.investmentProgramById)
 
 /**
  * @openapi
@@ -73,7 +74,7 @@ router.get('/investment_program/:id', InvestmentProgramController.investmentProg
  *                   items:
  *                     $ref: '#/components/schemas/ProgramaInversion'
  */
-router.get('/investment_program', InvestmentProgramController.getInvestmentProgramAll)
+router.get('/investment_program', authenticateJWT, InvestmentProgramController.getInvestmentProgramAll)
 
 /**
  * @openapi
@@ -118,7 +119,7 @@ router.get('/investment_program', InvestmentProgramController.getInvestmentProgr
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/investment_program', InvestmentProgramController.createInvestmentProgram)
+router.post('/investment_program', authenticateJWT, InvestmentProgramController.createInvestmentProgram)
 
 /**
  * @openapi
@@ -169,6 +170,6 @@ router.post('/investment_program', InvestmentProgramController.createInvestmentP
  *                   type: string
  *                   example: "Error al editar el ítem"
  */
-router.put('/investment_program/:id', InvestmentProgramController.updateInvestmentProgram)
+router.put('/investment_program/:id', authenticateJWT, InvestmentProgramController.updateInvestmentProgram)
 
 module.exports = router

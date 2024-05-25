@@ -8,6 +8,8 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+const authRoute = require('./routes/auth_route')
+
 const academicProgramRoutes = require('./routes/academic_program_routes')
 const factorTypeRoutes = require('./routes/factor_type_route')
 const factorRoutes = require('./routes/factor_route')
@@ -27,7 +29,7 @@ app.use((req, res, next) => {
 
 //Añadir prefijos a rutas
 
-app.use('/',
+app.use('/', authRoute,
     academicProgramRoutes, factorTypeRoutes, factorRoutes, strategicAxisRoute, strategicLineRoute, investmentProgramRoute)
 
 module.exports = app;

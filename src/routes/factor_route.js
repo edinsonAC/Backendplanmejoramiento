@@ -2,7 +2,9 @@
 
 const express = require('express')
 const FactorController = require('../controllers/factor_controller')
+const authenticateJWT = require('../middleware/jwt_guard')
 const router = express.Router()
+
 
 /**
  * @openapi
@@ -46,7 +48,7 @@ const router = express.Router()
  *                 data:
  *                   $ref: '#/components/schemas/Factor'
  */
-router.get('/factor/:id', FactorController.factorById)
+router.get('/factor/:id', authenticateJWT, FactorController.factorById)
 
 /**
  * @openapi
@@ -70,7 +72,7 @@ router.get('/factor/:id', FactorController.factorById)
  *                   items:
  *                     $ref: '#/components/schemas/Factor'
  */
-router.get('/factor', FactorController.getFactorAll)
+router.get('/factor', authenticateJWT, FactorController.getFactorAll)
 
 /**
  * @openapi
@@ -115,7 +117,7 @@ router.get('/factor', FactorController.getFactorAll)
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/factor', FactorController.createFactor)
+router.post('/factor', authenticateJWT, FactorController.createFactor)
 
 /**
  * @openapi
@@ -167,7 +169,7 @@ router.post('/factor', FactorController.createFactor)
  *                   type: string
  *                   example: "Error al editar el ítem"
  */
-router.put('/factor/:id', FactorController.updateFactor)
+router.put('/factor/:id', authenticateJWT, FactorController.updateFactor)
 
 
 module.exports = router

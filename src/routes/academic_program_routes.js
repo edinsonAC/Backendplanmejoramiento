@@ -3,12 +3,19 @@
 const express = require('express')
 const AcademicProgramController = require('../controllers/academic_program_controller')
 const router = express.Router()
-
+const authenticateJWT = require('../middleware/jwt_guard')
 
 /**
  * @swagger
  * components:
  *   schemas:
+ *     securitySchemes:
+ *       Authorization:
+ *         type: "http"
+ *         scheme: "bearer"
+ *         bearerFormat: "JWT"
+ *         value: "Bearer <JWT token here>"
+ *
  *     ProgramaAcademico:
  *       type: object
  *       properties:
@@ -24,13 +31,14 @@ const router = express.Router()
  */
 
 
-
 /**
  * @openapi
  * /academic_program/{id}:
  *   get:
  *     tags:
  *       - Programas academicos
+ *     security:
+ *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
@@ -52,7 +60,7 @@ const router = express.Router()
  *                 data:
  *                   $ref: '#/components/schemas/ProgramaAcademico'
  */
-router.get('/academic_program/:id', AcademicProgramController.academicProgramById)
+router.get('/academic_program/:id', authenticateJWT, AcademicProgramController.academicProgramById)
 
 /**
  * @openapi
@@ -76,7 +84,7 @@ router.get('/academic_program/:id', AcademicProgramController.academicProgramByI
  *                   items:
  *                     $ref: '#/components/schemas/ProgramaAcademico'
  */
-router.get('/academic_program', AcademicProgramController.getAcademicProgramAll)
+router.get('/academic_program', authenticateJWT, AcademicProgramController.getAcademicProgramAll)
 
 /**
  * @openapi
@@ -121,7 +129,7 @@ router.get('/academic_program', AcademicProgramController.getAcademicProgramAll)
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/academic_program', AcademicProgramController.createAcademicProgram)
+router.post('/academic_program', authenticateJWT, AcademicProgramController.createAcademicProgram)
 
 /**
  * @openapi
@@ -173,8 +181,8 @@ router.post('/academic_program', AcademicProgramController.createAcademicProgram
  *                   type: string
  *                   example: "Error al editar el ítem"
  */
-router.put('/academic_program/:id', AcademicProgramController.updateAcademicProgram)
-router.delete('/academic_program/:id', AcademicProgramController.deleteAcademicProgram)
+router.put('/academic_program/:id', authenticateJWT, AcademicProgramController.updateAcademicProgram)
+router.delete('/academic_program/:id', authenticateJWT, AcademicProgramController.deleteAcademicProgram)
 
 
 module.exports = router

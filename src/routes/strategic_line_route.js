@@ -2,6 +2,7 @@
 
 const express = require('express')
 const StrategicLineController = require('../controllers/strategic_line_controller')
+const authenticateJWT = require('../middleware/jwt_guard')
 const router = express.Router()
 
 /**
@@ -52,7 +53,7 @@ const router = express.Router()
  *                 data:
  *                   $ref: '#/components/schemas/LineaEstrategica'
  */
-router.get('/strategic_line/:id', StrategicLineController.strategicLineById)
+router.get('/strategic_line/:id', authenticateJWT, StrategicLineController.strategicLineById)
 
 /**
  * @openapi
@@ -76,7 +77,7 @@ router.get('/strategic_line/:id', StrategicLineController.strategicLineById)
  *                   items:
  *                     $ref: '#/components/schemas/LineaEstrategica'
  */
-router.get('/strategic_line', StrategicLineController.getStrategicLineAll)
+router.get('/strategic_line', authenticateJWT, StrategicLineController.getStrategicLineAll)
 
 /**
  * @openapi
@@ -125,7 +126,7 @@ router.get('/strategic_line', StrategicLineController.getStrategicLineAll)
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/strategic_line', StrategicLineController.createStrategicLine)
+router.post('/strategic_line', authenticateJWT, StrategicLineController.createStrategicLine)
 
 /**
  * @openapi
@@ -180,6 +181,6 @@ router.post('/strategic_line', StrategicLineController.createStrategicLine)
  *                   type: string
  *                   example: "Error al editar el ítem"
  */
-router.put('/strategic_line/:id', StrategicLineController.updateStrategicLine)
+router.put('/strategic_line/:id', authenticateJWT, StrategicLineController.updateStrategicLine)
 
 module.exports = router

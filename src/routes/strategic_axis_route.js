@@ -2,6 +2,7 @@
 
 const express = require('express')
 const StrategicAxisController = require('../controllers/strategic_axis_controller')
+const authenticateJWT = require('../middleware/jwt_guard')
 const router = express.Router()
 
 /**
@@ -46,7 +47,7 @@ const router = express.Router()
  *                 data:
  *                   $ref: '#/components/schemas/EjeEstrategico'
  */
-router.get('/strategic_axis/:id', StrategicAxisController.strategicAxisById)
+router.get('/strategic_axis/:id', authenticateJWT, StrategicAxisController.strategicAxisById)
 
 /**
  * @openapi
@@ -70,7 +71,7 @@ router.get('/strategic_axis/:id', StrategicAxisController.strategicAxisById)
  *                   items:
  *                     $ref: '#/components/schemas/EjeEstrategico'
  */
-router.get('/strategic_axis', StrategicAxisController.getStrategicAxisAll)
+router.get('/strategic_axis', authenticateJWT, StrategicAxisController.getStrategicAxisAll)
 
 /**
  * @openapi
@@ -110,7 +111,7 @@ router.get('/strategic_axis', StrategicAxisController.getStrategicAxisAll)
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/strategic_axis', StrategicAxisController.createStrategicAxis)
+router.post('/strategic_axis', authenticateJWT, StrategicAxisController.createStrategicAxis)
 
 /**
  * @openapi
@@ -157,6 +158,6 @@ router.post('/strategic_axis', StrategicAxisController.createStrategicAxis)
  *                   type: string
  *                   example: "Error al editar el ítem"
  */
-router.put('/strategic_axis/:id', StrategicAxisController.updateStrategicAxis)
+router.put('/strategic_axis/:id', authenticateJWT, StrategicAxisController.updateStrategicAxis)
 
 module.exports = router

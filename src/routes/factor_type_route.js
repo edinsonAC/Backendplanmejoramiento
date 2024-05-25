@@ -2,6 +2,7 @@
 
 const express = require('express')
 const FactorTypeController = require('../controllers/factor_type_controller')
+const authenticateJWT = require('../middleware/jwt_guard')
 const router = express.Router()
 
 /**
@@ -46,7 +47,7 @@ const router = express.Router()
  *                 data:
  *                   $ref: '#/components/schemas/TipoFactor'
  */
-router.get('/factor_type/:id', FactorTypeController.factorTypeById)
+router.get('/factor_type/:id', authenticateJWT, FactorTypeController.factorTypeById)
 
 /**
  * @openapi
@@ -70,7 +71,7 @@ router.get('/factor_type/:id', FactorTypeController.factorTypeById)
  *                   items:
  *                     $ref: '#/components/schemas/TipoFactor'
  */
-router.get('/factor_type', FactorTypeController.getFactorTypeAll)
+router.get('/factor_type', authenticateJWT, FactorTypeController.getFactorTypeAll)
 
 /**
  * @openapi
@@ -110,7 +111,7 @@ router.get('/factor_type', FactorTypeController.getFactorTypeAll)
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/factor_type', FactorTypeController.createFactorType)
+router.post('/factor_type', authenticateJWT, FactorTypeController.createFactorType)
 
 /**
  * @openapi
@@ -157,7 +158,9 @@ router.post('/factor_type', FactorTypeController.createFactorType)
  *                   type: string
  *                   example: "Error al editar el ítem"
  */
-router.put('/factor_type/:id', FactorTypeController.updateFactorType)
-router.delete('/factor_type/:id', FactorTypeController.deleteAcademicProgram)
+router.put('/factor_type/:id', authenticateJWT, FactorTypeController.updateFactorType)
+
+
+router.delete('/factor_type/:id', authenticateJWT, FactorTypeController.deleteAcademicProgram)
 
 module.exports = router
