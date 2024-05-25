@@ -23,7 +23,12 @@ const Usuario = sequelizeDb.define(
         usuaCorreo: {
             type: DataTypes.STRING,
             allowNull: false,
-            field: 'usua_apellido',
+            field: 'usua_correo',
+        },
+        usuaFoto: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            field: 'usua_foto',
         },
         tiusId: {
             type: DataTypes.INTEGER,
@@ -39,7 +44,7 @@ const Usuario = sequelizeDb.define(
             allowNull: false,
             field: 'prac_id',
             references: {
-                model: 'TipoUsuario',
+                model: 'ProgramaAcademico',
                 key: 'prac_id'
             }
         },
@@ -56,6 +61,7 @@ const Usuario = sequelizeDb.define(
     },
     {
         // Other model options go here
+        tableName: 'usuario',
     },
 );
 
