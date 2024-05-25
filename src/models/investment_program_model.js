@@ -18,9 +18,9 @@ const ProgramaInversion = sequelizeDb.define(
         liesId: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            field: 'ejes_id',
+            field: 'lies_id',
             references: {
-                model: 'EjeEstrategico',
+                model: 'LineaEstrategica',
                 key: 'lies_id'
             }
         },

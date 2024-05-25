@@ -2,7 +2,7 @@ const {DataTypes} = require('sequelize');
 const {sequelizeDb} = require('../config/database');
 
 const LineaEstrategica = sequelizeDb.define(
-    'factor',
+    'lineaEstrategica',
     {
         liesId: {
             type: DataTypes.INTEGER,
