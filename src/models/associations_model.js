@@ -3,15 +3,24 @@ const Factor = require("./factor_model");
 const EjeEstrategico = require("./strategic_axis_model");
 const LineaEstrategica = require("./strategic_line_model");
 const ProgramaInversion = require("./investment_program_model");
+const ProgramaAcademico = require("./academic_program_model");
+const TipoUsuario = require("./user_type_model");
+const Usuario = require("./user_model");
 
-TipoFactor.hasMany(Factor, { foreignKey: 'tifaId' });
-Factor.belongsTo(TipoFactor, { foreignKey: 'tifaId' });
+ProgramaAcademico.hasMany(Usuario, {foreignKey: 'pracId'});
+Usuario.belongsTo(ProgramaAcademico, {foreignKey: 'pracId'});
 
-EjeEstrategico.hasMany(LineaEstrategica, { foreignKey: 'ejesId' });
-LineaEstrategica.belongsTo(EjeEstrategico, { foreignKey: 'ejesId' });
+TipoUsuario.hasMany(Usuario, {foreignKey: 'tiusId'});
+Usuario.belongsTo(TipoUsuario, {foreignKey: 'tiusId'});
 
-LineaEstrategica.hasMany(ProgramaInversion, { foreignKey: 'liesId' });
-ProgramaInversion.belongsTo(LineaEstrategica, { foreignKey: 'liesId' });
+TipoFactor.hasMany(Factor, {foreignKey: 'tifaId'});
+Factor.belongsTo(TipoFactor, {foreignKey: 'tifaId'});
+
+EjeEstrategico.hasMany(LineaEstrategica, {foreignKey: 'ejesId'});
+LineaEstrategica.belongsTo(EjeEstrategico, {foreignKey: 'ejesId'});
+
+LineaEstrategica.hasMany(ProgramaInversion, {foreignKey: 'liesId'});
+ProgramaInversion.belongsTo(LineaEstrategica, {foreignKey: 'liesId'});
 
 
 module.exports = {
@@ -19,5 +28,8 @@ module.exports = {
     TipoFactor,
     EjeEstrategico,
     LineaEstrategica,
-    ProgramaInversion
+    ProgramaInversion,
+    ProgramaAcademico,
+    Usuario,
+    TipoUsuario
 };

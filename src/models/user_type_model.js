@@ -1,26 +1,26 @@
 const {DataTypes} = require('sequelize');
 const {sequelizeDb} = require('../config/database');
 
-const TipoFactor = sequelizeDb.define(
-    'TipoFactor',
+const TipoUsuario = sequelizeDb.define(
+    'tipoUsuario',
     {
-        tifaId: {
+        tiusId: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-            field: 'tifa_id',
+            field: 'tius_id',
         },
-        tifaNombre: {
+        tiusNombre: {
             type: DataTypes.STRING,
             allowNull: false,
-            field: 'tifa_nombre',
+            field: 'tius_nombre',
         },
     },
     {
         // Other model options go here
-        tableName: 'tipo_factor',
+        tableName: 'tipo_usuario',
         timestamps: false
     },
 );
 
-module.exports = TipoFactor;
+module.exports = TipoUsuario;

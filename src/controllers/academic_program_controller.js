@@ -1,9 +1,9 @@
-const ProgramaAcademicoModel = require('../models/academic_program_model')
+const {ProgramaAcademico} = require('../models/associations_model')
 
 const createAcademicProgram = async (req, res) => {
     const {pracNombre, pracCodigo} = req.body;
     try {
-        const newTodo = await ProgramaAcademicoModel.create({
+        const newTodo = await ProgramaAcademico.create({
             pracNombre,
             pracCodigo
         });
@@ -17,7 +17,7 @@ const createAcademicProgram = async (req, res) => {
 const academicProgramById = async (req, res) => {
     const id = req.params.id;
     try {
-        const todo = await ProgramaAcademicoModel.findByPk(id);
+        const todo = await ProgramaAcademico.findByPk(id);
         if (todo) {
             res.json(todo);
         } else {
@@ -31,7 +31,7 @@ const academicProgramById = async (req, res) => {
 
 const getAcademicProgramAll = async (req, res) => {
     try {
-        const todo = await ProgramaAcademicoModel.findAll();
+        const todo = await ProgramaAcademico.findAll();
         if (todo) {
             res.json(todo);
         } else {
@@ -46,7 +46,7 @@ const updateAcademicProgram = async (req, res) => {
     const id = req.params.id;
     const {pracNombre, pracCodigo} = req.body;
     try {
-        const todo = await ProgramaAcademicoModel.findByPk(id);
+        const todo = await ProgramaAcademico.findByPk(id);
         if (todo) {
             todo.pracNombre = pracNombre;
             todo.pracCodigo = pracCodigo;
@@ -63,7 +63,7 @@ const updateAcademicProgram = async (req, res) => {
 const deleteAcademicProgram = async (req, res) => {
     const id = req.params.id;
     try {
-        const todo = await ProgramaAcademicoModel.findByPk(id);
+        const todo = await ProgramaAcademico.findByPk(id);
         if (todo) {
             await todo.destroy();
             res.json(todo);

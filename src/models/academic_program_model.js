@@ -21,11 +21,13 @@ const ProgramaAcademico = sequelizeDb.define(
             field: 'prac_codigo',
         },
         createdAt: {
-            type: DataTypes.NOW,
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
             field: 'created_at',
         },
         updatedAt: {
-            type: DataTypes.NOW,
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
             field: 'updated_at',
         },
     },
