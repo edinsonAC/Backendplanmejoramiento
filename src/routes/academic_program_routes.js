@@ -84,7 +84,7 @@ router.get('/academic_program/:id', authenticateJWT, AcademicProgramController.a
  *                   items:
  *                     $ref: '#/components/schemas/ProgramaAcademico'
  */
-router.get('/academic_program', authenticateJWT, AcademicProgramController.getAcademicProgramAll)
+router.get('/academic_program', AcademicProgramController.getAcademicProgramAll)
 
 /**
  * @openapi
