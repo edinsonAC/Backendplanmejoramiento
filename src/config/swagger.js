@@ -32,11 +32,11 @@ const options = {
         },
         servers: [
             {
-                url: 'http://localhost:3030/',
+                url: 'http://localhost:3000/',
                 description: 'Servidor de desarrollo',
             },
             {
-                url: 'https://api.universidad.edu.co',
+                url: 'http://54.225.45.219:3000',
                 description: 'Servidor de producción',
             },
         ],
