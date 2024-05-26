@@ -36,7 +36,7 @@ const options = {
                 description: 'Servidor de desarrollo',
             },
             {
-                url: 'http://54.225.45.219:3000',
+                url: 'http://54.234.46.211:3000',
                 description: 'Servidor de producción',
             },
         ],
