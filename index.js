@@ -1,7 +1,7 @@
 'use strict'
 
 var app = require('./src/app');
-const PORT = process.env.PORT || 3030;
+const PORT = process.env.PORT || 3000;
 const {swaggerDocs} = require('./src/config/swagger')
 
 app.listen(PORT, () => {
