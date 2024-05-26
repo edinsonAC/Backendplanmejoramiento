@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    # restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - "3030:3030"
+    environment:
+      - DB_HOST
+      - DB_USER
+      - DB_PASSWORD
+      - DB_NAME
+      - PORT
+      - ID_CLIENT_GOOGLE
+      - SECRET_JWT
+    volumes:
+      - .:/myapp
+    command: sh -c "npm install && npm run start"
