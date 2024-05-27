@@ -20,6 +20,8 @@ const investmentProgramRoute = require('./routes/investment_program_route')
 
 //CORS
 // Configurar cabeceras y cors
+const allowedOrigins = ['https://d1uwk0hpr2aoq5.cloudfront.net', 'http://localhost:5173'];
+
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
