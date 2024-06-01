@@ -1,7 +1,7 @@
 'use strict'
 
 const express = require('express')
-const SituationTypeController = require('../controllers/situation_type_controller')
+const ResponsibleController = require('../controllers/responsible_controller')
 const router = express.Router()
 const authenticateJWT = require('../middleware/jwt_guard')
 
@@ -9,30 +9,30 @@ const authenticateJWT = require('../middleware/jwt_guard')
  * @swagger
  * components:
  *   schemas:
- *     TipoSituacion:
+ *     Responsable:
  *       type: object
  *       properties:
- *         tisiId:
+ *         respId:
  *           type: number
  *           example: 1
- *         tisiNombre:
+ *         respNombre:
  *           type: string
- *           example: Situacion test
+ *           example: Responsable test
  */
 
 /**
  * @openapi
- * /situation_type/{id}:
+ * /responsible/{id}:
  *   get:
  *     tags:
- *       - Tipo situacion
+ *       - Responsables
  *     security:
  *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
  *        required: true
- *        description: ID de tipo situacion
+ *        description: ID de responsable
  *        schema:
  *        type: number
  *     responses:
@@ -47,16 +47,16 @@ const authenticateJWT = require('../middleware/jwt_guard')
  *                   type: string
  *                   example: OK
  *                 data:
- *                   $ref: '#/components/schemas/TipoSituacion'
+ *                   $ref: '#/components/schemas/Responsable'
  */
-router.get('/situation_type/:id', authenticateJWT, SituationTypeController.situationTypeById)
+router.get('/responsible/:id', authenticateJWT, ResponsibleController.responsibleById)
 
 /**
  * @openapi
- * /situation_type:
+ * /responsible:
  *   get:
  *     tags:
- *       - Tipo situacion
+ *       - Responsables
  *     responses:
  *       200:
  *         description: OK
@@ -71,16 +71,16 @@ router.get('/situation_type/:id', authenticateJWT, SituationTypeController.situa
  *                 data:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/TipoSituacion'
+ *                     $ref: '#/components/schemas/Responsable'
  */
-router.get('/situation_type', authenticateJWT, SituationTypeController.getSituationTypeAll)
+router.get('/responsible', authenticateJWT, ResponsibleController.getResponsibleAll)
 
 /**
  * @openapi
- * /situation_type:
+ * /responsible:
  *   post:
  *     tags:
- *       - Tipo situacion
+ *       - Responsables
  *     requestBody:
  *       description: Datos necesarios para crear un nuevo ítem
  *       required: true
@@ -89,19 +89,19 @@ router.get('/situation_type', authenticateJWT, SituationTypeController.getSituat
  *           schema:
  *             type: object
  *             properties:
- *               tisiNombre:
+ *               respNombre:
  *                 type: string
- *                 example: "Situacion prueba"
- *                 description: "El nombre de la situacion"
+ *                 example: "Responsable prueba"
+ *                 description: "El nombre del responsable"
  *             required:
- *               - tisiNombre
+ *               - respNombre
  *     responses:
  *       201:
  *         description: OK
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/TipoSituacion'
+ *               $ref: '#/components/schemas/Responsable'
  *       500:
  *         description: Error interno del servidor
  *         content:
@@ -113,19 +113,19 @@ router.get('/situation_type', authenticateJWT, SituationTypeController.getSituat
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/situation_type', authenticateJWT, SituationTypeController.createSituationType)
+router.post('/responsible', authenticateJWT, ResponsibleController.createResponsible)
 
 /**
  * @openapi
- * /situation_type/{id}:
+ * /responsible/{id}:
  *   put:
  *     tags:
- *       - Tipo situacion
+ *       - Responsables
  *     parameters:
  *      - name: id
  *        in: path
  *        required: true
- *        description: ID de tipo situacion
+ *        description: ID del responsable
  *        schema:
  *        type: number
  *     requestBody:
@@ -136,19 +136,19 @@ router.post('/situation_type', authenticateJWT, SituationTypeController.createSi
  *           schema:
  *             type: object
  *             properties:
- *               tisiNombre:
+ *               respNombre:
  *                 type: string
- *                 example: "situacion test"
- *                 description: "El nombre de la situacion"
+ *                 example: "Responsable test"
+ *                 description: "El nombre del responsable"
  *             required:
- *               - tisiNombre
+ *               - respNombre
  *     responses:
  *       200:
  *         description: OK
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/TipoSituacion'
+ *               $ref: '#/components/schemas/Responsable'
  *       500:
  *         description: Error interno del servidor
  *         content:
@@ -160,7 +160,7 @@ router.post('/situation_type', authenticateJWT, SituationTypeController.createSi
  *                   type: string
  *                   example: "Error al editar el ítem"
  */
-router.put('/situation_type/:id', authenticateJWT, SituationTypeController.updateSituationType)
+router.put('/responsible/:id', authenticateJWT, ResponsibleController.updateResponsible)
 
 
 module.exports = router
