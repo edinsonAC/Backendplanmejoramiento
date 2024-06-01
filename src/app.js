@@ -18,6 +18,7 @@ const strategicAxisRoute = require('./routes/strategic_axis_route')
 const strategicLineRoute = require('./routes/strategic_line_route')
 const investmentProgramRoute = require('./routes/investment_program_route')
 const processRoute = require('./routes/process_route')
+const situationTypeRoute = require('./routes/situation_type_route')
 
 //CORS
 // Configurar cabeceras y cors
@@ -33,7 +34,7 @@ app.use((req, res, next) => {
 
 //Añadir prefijos a rutas
 
-app.use('/', authRoute, userTypeRoute, processRoute,
+app.use('/', authRoute, userTypeRoute, processRoute, situationTypeRoute,
     academicProgramRoutes, factorTypeRoutes, factorRoutes, strategicAxisRoute, strategicLineRoute, investmentProgramRoute)
 
 module.exports = app;
