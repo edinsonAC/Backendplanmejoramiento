@@ -35,6 +35,15 @@ const login = async (req, res) => {
         const user = await Usuario.findOne({where: {usuaCorreo: info.email}})
 
         if (user) {
+
+            if (user.tiusId != tiusId) {
+                return res.status(400).json({error: 'El usuario no pertenece a ese rol.'});
+            }
+
+            if (user.pracId != pracId) {
+                return res.status(400).json({error: 'El usuario no pertenece a ese programa academico.'});
+            }
+
             const {given_name, family_name, picture} = info;
             user.usuaNombre = given_name
             user.usuaApellido = family_name

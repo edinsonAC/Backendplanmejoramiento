@@ -1,36 +1,39 @@
 'use strict'
 
 const express = require('express')
-const FactorTypeController = require('../controllers/factor_type_controller')
-const authenticateJWT = require('../middleware/jwt_guard')
+const ProcessController = require('../controllers/process_controller')
 const router = express.Router()
+const authenticateJWT = require('../middleware/jwt_guard')
 
 /**
- * @openapi
+ * @swagger
  * components:
  *   schemas:
- *     TipoFactor:
+ *     Proceso:
  *       type: object
  *       properties:
- *         id:
+ *         procId:
  *           type: number
  *           example: 1
- *         tifaNombre:
+ *         procNombre:
  *           type: string
- *           example: Institucional
+ *           example: Proceso test
  */
+
 
 /**
  * @openapi
- * /factor_type/{id}:
+ * /process/{id}:
  *   get:
  *     tags:
- *       - Tipo factores
+ *       - Procesos
+ *     security:
+ *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
  *        required: true
- *        description: ID del tipo factor
+ *        description: ID del proceso
  *        schema:
  *        type: number
  *     responses:
@@ -45,16 +48,16 @@ const router = express.Router()
  *                   type: string
  *                   example: OK
  *                 data:
- *                   $ref: '#/components/schemas/TipoFactor'
+ *                   $ref: '#/components/schemas/Proceso'
  */
-router.get('/factor_type/:id', authenticateJWT, FactorTypeController.factorTypeById)
+router.get('/process/:id', authenticateJWT, ProcessController.processById)
 
 /**
  * @openapi
- * /factor_type:
+ * /process:
  *   get:
  *     tags:
- *       - Tipo factores
+ *       - Procesos
  *     responses:
  *       200:
  *         description: OK
@@ -69,16 +72,16 @@ router.get('/factor_type/:id', authenticateJWT, FactorTypeController.factorTypeB
  *                 data:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/TipoFactor'
+ *                     $ref: '#/components/schemas/Proceso'
  */
-router.get('/factor_type', authenticateJWT, FactorTypeController.getFactorTypeAll)
+router.get('/process', authenticateJWT, ProcessController.getProcessAll)
 
 /**
  * @openapi
- * /factor_type:
+ * /process:
  *   post:
  *     tags:
- *       - Tipo factores
+ *       - Procesos
  *     requestBody:
  *       description: Datos necesarios para crear un nuevo ítem
  *       required: true
@@ -87,19 +90,19 @@ router.get('/factor_type', authenticateJWT, FactorTypeController.getFactorTypeAl
  *           schema:
  *             type: object
  *             properties:
- *               tifaNombre:
+ *               procNombre:
  *                 type: string
- *                 example: "Institucional"
- *                 description: "El nombre del tipo factor"
+ *                 example: "proceso prueba"
+ *                 description: "El nombre del proceso"
  *             required:
- *               - tifaNombre
+ *               - procNombre
  *     responses:
  *       201:
  *         description: OK
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/TipoFactor'
+ *               $ref: '#/components/schemas/Proceso'
  *       500:
  *         description: Error interno del servidor
  *         content:
@@ -111,19 +114,19 @@ router.get('/factor_type', authenticateJWT, FactorTypeController.getFactorTypeAl
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/factor_type', authenticateJWT, FactorTypeController.createFactorType)
+router.post('/process', authenticateJWT, ProcessController.createProcess)
 
 /**
  * @openapi
- * /factor_type/{id}:
+ * /process/{id}:
  *   put:
  *     tags:
- *       - Tipo factores
+ *       - Procesos
  *     parameters:
  *      - name: id
  *        in: path
  *        required: true
- *        description: ID del tipo factor
+ *        description: ID del proceso
  *        schema:
  *        type: number
  *     requestBody:
@@ -134,19 +137,19 @@ router.post('/factor_type', authenticateJWT, FactorTypeController.createFactorTy
  *           schema:
  *             type: object
  *             properties:
- *               tifaNombre:
+ *               procNombre:
  *                 type: string
- *                 example: "Institucional"
- *                 description: "El nombre del tipo de factor"
+ *                 example: "proceso test"
+ *                 description: "El nombre del proceso"
  *             required:
- *               - tifaNombre
+ *               - procNombre
  *     responses:
  *       200:
  *         description: OK
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/TipoFactor'
+ *               $ref: '#/components/schemas/Proceso'
  *       500:
  *         description: Error interno del servidor
  *         content:
@@ -158,8 +161,7 @@ router.post('/factor_type', authenticateJWT, FactorTypeController.createFactorTy
  *                   type: string
  *                   example: "Error al editar el ítem"
  */
-router.put('/factor_type/:id', authenticateJWT, FactorTypeController.updateFactorType)
+router.put('/process/:id', authenticateJWT, ProcessController.updateProcess)
 
-router.delete('/factor_type/:id', authenticateJWT, FactorTypeController.deleteAcademicProgram)
 
 module.exports = router

@@ -88,7 +88,7 @@ router.get('/academic_program', AcademicProgramController.getAcademicProgramAll)
 
 /**
  * @openapi
- * /academic_program/:
+ * /academic_program:
  *   post:
  *     tags:
  *       - Programas academicos
