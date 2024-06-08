@@ -1,7 +1,7 @@
 'use strict'
 
 const express = require('express')
-const ImprovementPlanController = require('../controllers/improvement_plan_controller')
+const ProjectController = require('../controllers/project_controller')
 const authenticateJWT = require('../middleware/jwt_guard')
 const router = express.Router()
 
@@ -10,31 +10,31 @@ const router = express.Router()
  * @openapi
  * components:
  *   schemas:
- *     PlanMejoramiento:
+ *     Proyecto:
  *       type: object
  *       properties:
  *         id:
  *           type: number
  *           example: 1
- *         plmeNombre:
+ *         proyNombre:
  *           type: string
- *           example: Institucional
- *         pracId:
+ *           example: proyecto
+ *         plmeId:
  *           type: number
  *           example: 1
  */
 
 /**
  * @openapi
- * /improvement-plan/{id}:
+ * /project/{id}:
  *   get:
  *     tags:
- *       - Plan Mejoramiento
+ *       - Proyecto
  *     parameters:
  *      - name: id
  *        in: path
  *        required: true
- *        description: ID del plan
+ *        description: ID del proyecto
  *        schema:
  *        type: number
  *     responses:
@@ -49,21 +49,21 @@ const router = express.Router()
  *                   type: string
  *                   example: OK
  *                 data:
- *                   $ref: '#/components/schemas/PlanMejoramiento'
+ *                   $ref: '#/components/schemas/Proyecto'
  */
-router.get('/improvement-plan/:id', authenticateJWT, ImprovementPlanController.improvementPlanById)
+router.get('/project/:id', authenticateJWT, ProjectController.projectById)
 
 /**
  * @openapi
- * /improvement-plan/academic-program/{id}:
+ * /project/improvement-plan/{id}:
  *   get:
  *     tags:
- *       - Plan Mejoramiento
+ *       - Proyecto
  *     parameters:
  *      - name: id
  *        in: path
  *        required: true
- *        description: ID del programa academico
+ *        description: ID del plan mejoramiento
  *        schema:
  *        type: number
  *     responses:
@@ -80,16 +80,16 @@ router.get('/improvement-plan/:id', authenticateJWT, ImprovementPlanController.i
  *                 data:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/PlanMejoramiento'
+ *                     $ref: '#/components/schemas/Proyecto'
  */
-router.get('/improvement-plan/academic-program/:id', authenticateJWT, ImprovementPlanController.getImprovementPlanByPracId)
+router.get('/project/improvement-plan/:id', authenticateJWT, ProjectController.getProjectsByPlmeId)
 
 /**
  * @openapi
- * /improvement-plan:
+ * /project:
  *   get:
  *     tags:
- *       - Plan Mejoramiento
+ *       - Proyecto
  *     responses:
  *       200:
  *         description: OK
@@ -104,16 +104,16 @@ router.get('/improvement-plan/academic-program/:id', authenticateJWT, Improvemen
  *                 data:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/PlanMejoramiento'
+ *                     $ref: '#/components/schemas/Proyecto'
  */
-router.get('/improvement-plan', authenticateJWT, ImprovementPlanController.getImprovementPlanAll)
+router.get('/project', authenticateJWT, ProjectController.getProjectAll)
 
 /**
  * @openapi
- * /improvement-plan:
+ * /project:
  *   post:
  *     tags:
- *       - Plan Mejoramiento
+ *       - Proyecto
  *     requestBody:
  *       description: Datos necesarios para crear un nuevo ítem
  *       required: true
@@ -122,24 +122,24 @@ router.get('/improvement-plan', authenticateJWT, ImprovementPlanController.getIm
  *           schema:
  *             type: object
  *             properties:
- *               plmeNombre:
+ *               proyNombre:
  *                 type: string
- *                 example: "Prueba Plan"
- *                 description: "El nombre del plan"
- *               pracId:
+ *                 example: "Prueba proyecto"
+ *                 description: "El nombre del proyecto"
+ *               plmeId:
  *                 type: number
  *                 example: 1
- *                 description: "El id del programa academico"
+ *                 description: "El id del plan de mejoramiento"
  *             required:
- *               - plmeNombre
- *               - pracId
+ *               - proyNombre
+ *               - plmeId
  *     responses:
  *       201:
  *         description: OK
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/PlanMejoramiento'
+ *               $ref: '#/components/schemas/Proyecto'
  *       500:
  *         description: Error interno del servidor
  *         content:
@@ -151,19 +151,19 @@ router.get('/improvement-plan', authenticateJWT, ImprovementPlanController.getIm
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/improvement-plan', authenticateJWT, ImprovementPlanController.createImprovementPlan)
+router.post('/project', authenticateJWT, ProjectController.createProject)
 
 /**
  * @openapi
- * /improvement-plan/{id}:
+ * /project/{id}:
  *   put:
  *     tags:
- *       - Plan Mejoramiento
+ *       - Proyecto
  *     parameters:
  *      - name: id
  *        in: path
  *        required: true
- *        description: ID del plan
+ *        description: ID del proyecto
  *        schema:
  *        type: number
  *     requestBody:
@@ -174,24 +174,24 @@ router.post('/improvement-plan', authenticateJWT, ImprovementPlanController.crea
  *           schema:
  *             type: object
  *             properties:
- *               plmeNombre:
+ *               proyNombre:
  *                 type: string
- *                 example: "Prueba factor"
- *                 description: "El nombre del plan"
- *               pracId:
+ *                 example: "Prueba proyecto"
+ *                 description: "El nombre del proyecto"
+ *               plmeId:
  *                 type: number
  *                 example: 1
- *                 description: "El id del programa academico"
+ *                 description: "El id del plan de mejoramiento"
  *             required:
- *               - plmeNombre
- *               - pracId
+ *               - proyNombre
+ *               - plmeId
  *     responses:
  *       200:
  *         description: OK
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/PlanMejoramiento'
+ *               $ref: '#/components/schemas/Proyecto'
  *       500:
  *         description: Error interno del servidor
  *         content:
@@ -203,7 +203,6 @@ router.post('/improvement-plan', authenticateJWT, ImprovementPlanController.crea
  *                   type: string
  *                   example: "Error al editar el ítem"
  */
-router.put('/improvement-plan/:id', authenticateJWT, ImprovementPlanController.updateImprovementPlan)
-
+router.put('/project/:id', authenticateJWT, ProjectController.updateProject)
 
 module.exports = router
