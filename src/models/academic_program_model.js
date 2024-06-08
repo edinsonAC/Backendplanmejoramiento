@@ -2,7 +2,7 @@ const {DataTypes} = require('sequelize');
 const {sequelizeDb} = require('../config/database');
 
 const ProgramaAcademico = sequelizeDb.define(
-    'ProgramaAcademico',
+    'programaAcademico',
     {
         pracId: {
             type: DataTypes.INTEGER,

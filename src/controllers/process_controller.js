@@ -1,4 +1,4 @@
-const Proceso = require('../models/process_model')
+const {Proceso} = require('../models/associations_model')
 
 const createProcess = async (req, res) => {
     const {procNombre} = req.body;

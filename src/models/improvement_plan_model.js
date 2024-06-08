@@ -2,7 +2,7 @@ const {DataTypes} = require('sequelize');
 const {sequelizeDb} = require('../config/database');
 
 const PlanMejoramiento = sequelizeDb.define(
-    'plan_mejoramiento',
+    'planMejoramiento',
     {
         plmeId: {
             type: DataTypes.INTEGER,

@@ -1,4 +1,4 @@
-const TipoSituacion = require('../models/situation_type_model')
+const {TipoSituacion} = require('../models/associations_model')
 
 const createSituationType = async (req, res) => {
     const {tisiNombre} = req.body;

@@ -2,7 +2,7 @@ const {DataTypes} = require('sequelize');
 const {sequelizeDb} = require('../config/database');
 
 const TipoSituacion = sequelizeDb.define(
-    'TipoSituacion',
+    'tipoSituacion',
     {
         tisiId: {
             type: DataTypes.INTEGER,
