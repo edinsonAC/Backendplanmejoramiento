@@ -28,7 +28,7 @@ const router = express.Router()
 
 /**
  * @openapi
- * /strategic_line/{id}:
+ * /strategic-line/{id}:
  *   get:
  *     tags:
  *       - Lineas estrategicas
@@ -53,11 +53,11 @@ const router = express.Router()
  *                 data:
  *                   $ref: '#/components/schemas/LineaEstrategica'
  */
-router.get('/strategic_line/:id', authenticateJWT, StrategicLineController.strategicLineById)
+router.get('/strategic-line/:id', authenticateJWT, StrategicLineController.strategicLineById)
 
 /**
  * @openapi
- * /strategic_line:
+ * /strategic-line:
  *   get:
  *     tags:
  *       - Lineas estrategicas
@@ -77,11 +77,11 @@ router.get('/strategic_line/:id', authenticateJWT, StrategicLineController.strat
  *                   items:
  *                     $ref: '#/components/schemas/LineaEstrategica'
  */
-router.get('/strategic_line', authenticateJWT, StrategicLineController.getStrategicLineAll)
+router.get('/strategic-line', authenticateJWT, StrategicLineController.getStrategicLineAll)
 
 /**
  * @openapi
- * /strategic_line:
+ * /strategic-line:
  *   post:
  *     tags:
  *       - Lineas estrategicas
@@ -126,11 +126,11 @@ router.get('/strategic_line', authenticateJWT, StrategicLineController.getStrate
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/strategic_line', authenticateJWT, StrategicLineController.createStrategicLine)
+router.post('/strategic-line', authenticateJWT, StrategicLineController.createStrategicLine)
 
 /**
  * @openapi
- * /strategic_line/{id}:
+ * /strategic-line/{id}:
  *   put:
  *     tags:
  *       - Lineas estrategicas
@@ -181,6 +181,6 @@ router.post('/strategic_line', authenticateJWT, StrategicLineController.createSt
  *                   type: string
  *                   example: "Error al editar el ítem"
  */
-router.put('/strategic_line/:id', authenticateJWT, StrategicLineController.updateStrategicLine)
+router.put('/strategic-line/:id', authenticateJWT, StrategicLineController.updateStrategicLine)
 
 module.exports = router

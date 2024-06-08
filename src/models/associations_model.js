@@ -7,6 +7,8 @@ const ProgramaAcademico = require("./academic_program_model");
 const TipoUsuario = require("./user_type_model");
 const Usuario = require("./user_model");
 
+const PlanMejoramiento = require("./improvement_plan_model")
+
 ProgramaAcademico.hasMany(Usuario, {foreignKey: 'pracId'});
 Usuario.belongsTo(ProgramaAcademico, {foreignKey: 'pracId'});
 
@@ -22,6 +24,9 @@ LineaEstrategica.belongsTo(EjeEstrategico, {foreignKey: 'ejesId'});
 LineaEstrategica.hasMany(ProgramaInversion, {foreignKey: 'liesId'});
 ProgramaInversion.belongsTo(LineaEstrategica, {foreignKey: 'liesId'});
 
+ProgramaAcademico.hasMany(PlanMejoramiento, {foreignKey: 'pracId'});
+PlanMejoramiento.belongsTo(ProgramaAcademico, {foreignKey: 'pracId'});
+
 
 module.exports = {
     Factor,
@@ -31,5 +36,6 @@ module.exports = {
     ProgramaInversion,
     ProgramaAcademico,
     Usuario,
-    TipoUsuario
+    TipoUsuario,
+    PlanMejoramiento
 };

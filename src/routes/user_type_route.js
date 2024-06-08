@@ -22,7 +22,7 @@ const router = express.Router()
 
 /**
  * @openapi
- * /user_type:
+ * /user-type:
  *   get:
  *     tags:
  *       - Tipo usuario
@@ -42,7 +42,7 @@ const router = express.Router()
  *                   items:
  *                     $ref: '#/components/schemas/TipoUsuario'
  */
-router.get('/user_type', TipoUsuarioController.getUserTypeAll)
+router.get('/user-type', TipoUsuarioController.getUserTypeAll)
 
 
 module.exports = router

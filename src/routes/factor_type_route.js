@@ -22,7 +22,7 @@ const router = express.Router()
 
 /**
  * @openapi
- * /factor_type/{id}:
+ * /factor-type/{id}:
  *   get:
  *     tags:
  *       - Tipo factores
@@ -47,11 +47,11 @@ const router = express.Router()
  *                 data:
  *                   $ref: '#/components/schemas/TipoFactor'
  */
-router.get('/factor_type/:id', authenticateJWT, FactorTypeController.factorTypeById)
+router.get('/factor-type/:id', authenticateJWT, FactorTypeController.factorTypeById)
 
 /**
  * @openapi
- * /factor_type:
+ * /factor-type:
  *   get:
  *     tags:
  *       - Tipo factores
@@ -71,11 +71,11 @@ router.get('/factor_type/:id', authenticateJWT, FactorTypeController.factorTypeB
  *                   items:
  *                     $ref: '#/components/schemas/TipoFactor'
  */
-router.get('/factor_type', authenticateJWT, FactorTypeController.getFactorTypeAll)
+router.get('/factor-type', authenticateJWT, FactorTypeController.getFactorTypeAll)
 
 /**
  * @openapi
- * /factor_type:
+ * /factor-type:
  *   post:
  *     tags:
  *       - Tipo factores
@@ -111,11 +111,11 @@ router.get('/factor_type', authenticateJWT, FactorTypeController.getFactorTypeAl
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/factor_type', authenticateJWT, FactorTypeController.createFactorType)
+router.post('/factor-type', authenticateJWT, FactorTypeController.createFactorType)
 
 /**
  * @openapi
- * /factor_type/{id}:
+ * /factor-type/{id}:
  *   put:
  *     tags:
  *       - Tipo factores
@@ -158,8 +158,8 @@ router.post('/factor_type', authenticateJWT, FactorTypeController.createFactorTy
  *                   type: string
  *                   example: "Error al editar el ítem"
  */
-router.put('/factor_type/:id', authenticateJWT, FactorTypeController.updateFactorType)
+router.put('/factor-type/:id', authenticateJWT, FactorTypeController.updateFactorType)
 
-router.delete('/factor_type/:id', authenticateJWT, FactorTypeController.deleteAcademicProgram)
+router.delete('/factor-type/:id', authenticateJWT, FactorTypeController.deleteAcademicProgram)
 
 module.exports = router

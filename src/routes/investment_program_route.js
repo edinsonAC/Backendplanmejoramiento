@@ -25,7 +25,7 @@ const router = express.Router()
 
 /**
  * @openapi
- * /investment_program/{id}:
+ * /investment-program/{id}:
  *   get:
  *     tags:
  *       - Programa inversion
@@ -50,11 +50,11 @@ const router = express.Router()
  *                 data:
  *                   $ref: '#/components/schemas/ProgramaInversion'
  */
-router.get('/investment_program/:id', authenticateJWT, InvestmentProgramController.investmentProgramById)
+router.get('/investment-program/:id', authenticateJWT, InvestmentProgramController.investmentProgramById)
 
 /**
  * @openapi
- * /investment_program:
+ * /investment-program:
  *   get:
  *     tags:
  *       - Programa inversion
@@ -74,11 +74,11 @@ router.get('/investment_program/:id', authenticateJWT, InvestmentProgramControll
  *                   items:
  *                     $ref: '#/components/schemas/ProgramaInversion'
  */
-router.get('/investment_program', authenticateJWT, InvestmentProgramController.getInvestmentProgramAll)
+router.get('/investment-program', authenticateJWT, InvestmentProgramController.getInvestmentProgramAll)
 
 /**
  * @openapi
- * /investment_program:
+ * /investment-program:
  *   post:
  *     tags:
  *       - Programa inversion
@@ -119,11 +119,11 @@ router.get('/investment_program', authenticateJWT, InvestmentProgramController.g
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/investment_program', authenticateJWT, InvestmentProgramController.createInvestmentProgram)
+router.post('/investment-program', authenticateJWT, InvestmentProgramController.createInvestmentProgram)
 
 /**
  * @openapi
- * /investment_program/{id}:
+ * /investment-program/{id}:
  *   put:
  *     tags:
  *       - Programa inversion
@@ -170,6 +170,6 @@ router.post('/investment_program', authenticateJWT, InvestmentProgramController.
  *                   type: string
  *                   example: "Error al editar el ítem"
  */
-router.put('/investment_program/:id', authenticateJWT, InvestmentProgramController.updateInvestmentProgram)
+router.put('/investment-program/:id', authenticateJWT, InvestmentProgramController.updateInvestmentProgram)
 
 module.exports = router

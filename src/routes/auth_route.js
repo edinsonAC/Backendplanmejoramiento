@@ -37,7 +37,7 @@ const router = express.Router()
 
 /**
  * @openapi
- * /generate_hash:
+ * /generate-hash:
  *   post:
  *     tags:
  *       - Autenticacion
@@ -78,11 +78,11 @@ const router = express.Router()
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/generate_hash', AuthController.generateHash)
+router.post('/generate-hash', AuthController.generateHash)
 
 /**
  * @openapi
- * /login_admin:
+ * /login-admin:
  *   post:
  *     tags:
  *       - Autenticacion
@@ -148,7 +148,7 @@ router.post('/generate_hash', AuthController.generateHash)
  *                   type: string
  *                   example: "Error interno del servidor"
  */
-router.post('/login_admin', AuthController.loginAdmin)
+router.post('/login-admin', AuthController.loginAdmin)
 
 /**
  * @openapi

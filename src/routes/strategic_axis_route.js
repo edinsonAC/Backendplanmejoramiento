@@ -22,7 +22,7 @@ const router = express.Router()
 
 /**
  * @openapi
- * /strategic_axis/{id}:
+ * /strategic-axis/{id}:
  *   get:
  *     tags:
  *       - Ejes estrategicos
@@ -47,11 +47,11 @@ const router = express.Router()
  *                 data:
  *                   $ref: '#/components/schemas/EjeEstrategico'
  */
-router.get('/strategic_axis/:id', authenticateJWT, StrategicAxisController.strategicAxisById)
+router.get('/strategic-axis/:id', authenticateJWT, StrategicAxisController.strategicAxisById)
 
 /**
  * @openapi
- * /strategic_axis:
+ * /strategic-axis:
  *   get:
  *     tags:
  *       - Ejes estrategicos
@@ -71,11 +71,11 @@ router.get('/strategic_axis/:id', authenticateJWT, StrategicAxisController.strat
  *                   items:
  *                     $ref: '#/components/schemas/EjeEstrategico'
  */
-router.get('/strategic_axis', authenticateJWT, StrategicAxisController.getStrategicAxisAll)
+router.get('/strategic-axis', authenticateJWT, StrategicAxisController.getStrategicAxisAll)
 
 /**
  * @openapi
- * /strategic_axis:
+ * /strategic-axis:
  *   post:
  *     tags:
  *       - Ejes estrategicos
@@ -111,11 +111,11 @@ router.get('/strategic_axis', authenticateJWT, StrategicAxisController.getStrate
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/strategic_axis', authenticateJWT, StrategicAxisController.createStrategicAxis)
+router.post('/strategic-axis', authenticateJWT, StrategicAxisController.createStrategicAxis)
 
 /**
  * @openapi
- * /strategic_axis/{id}:
+ * /strategic-axis/{id}:
  *   put:
  *     tags:
  *       - Ejes estrategicos
@@ -158,6 +158,6 @@ router.post('/strategic_axis', authenticateJWT, StrategicAxisController.createSt
  *                   type: string
  *                   example: "Error al editar el ítem"
  */
-router.put('/strategic_axis/:id', authenticateJWT, StrategicAxisController.updateStrategicAxis)
+router.put('/strategic-axis/:id', authenticateJWT, StrategicAxisController.updateStrategicAxis)
 
 module.exports = router

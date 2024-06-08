@@ -22,7 +22,7 @@ const authenticateJWT = require('../middleware/jwt_guard')
 
 /**
  * @openapi
- * /situation_type/{id}:
+ * /situation-type/{id}:
  *   get:
  *     tags:
  *       - Tipo situacion
@@ -49,11 +49,11 @@ const authenticateJWT = require('../middleware/jwt_guard')
  *                 data:
  *                   $ref: '#/components/schemas/TipoSituacion'
  */
-router.get('/situation_type/:id', authenticateJWT, SituationTypeController.situationTypeById)
+router.get('/situation-type/:id', authenticateJWT, SituationTypeController.situationTypeById)
 
 /**
  * @openapi
- * /situation_type:
+ * /situation-type:
  *   get:
  *     tags:
  *       - Tipo situacion
@@ -73,11 +73,11 @@ router.get('/situation_type/:id', authenticateJWT, SituationTypeController.situa
  *                   items:
  *                     $ref: '#/components/schemas/TipoSituacion'
  */
-router.get('/situation_type', authenticateJWT, SituationTypeController.getSituationTypeAll)
+router.get('/situation-type', authenticateJWT, SituationTypeController.getSituationTypeAll)
 
 /**
  * @openapi
- * /situation_type:
+ * /situation-type:
  *   post:
  *     tags:
  *       - Tipo situacion
@@ -113,11 +113,11 @@ router.get('/situation_type', authenticateJWT, SituationTypeController.getSituat
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/situation_type', authenticateJWT, SituationTypeController.createSituationType)
+router.post('/situation-type', authenticateJWT, SituationTypeController.createSituationType)
 
 /**
  * @openapi
- * /situation_type/{id}:
+ * /situation-type/{id}:
  *   put:
  *     tags:
  *       - Tipo situacion
@@ -160,7 +160,7 @@ router.post('/situation_type', authenticateJWT, SituationTypeController.createSi
  *                   type: string
  *                   example: "Error al editar el ítem"
  */
-router.put('/situation_type/:id', authenticateJWT, SituationTypeController.updateSituationType)
+router.put('/situation-type/:id', authenticateJWT, SituationTypeController.updateSituationType)
 
 
 module.exports = router
