@@ -8,10 +8,12 @@ const TipoUsuario = require("./user_type_model");
 const Usuario = require("./user_model");
 const Proceso = require("./process_model");
 const TipoSituacion = require("./situation_type_model");
+const Responsable = require("./responsible_model");
 
 const PlanMejoramiento = require("./improvement_plan_model")
 const Proyecto = require("./project_model")
 const AccionMejora = require("./improvement_action_model")
+const Tarea = require("./task_model")
 
 ProgramaAcademico.hasMany(Usuario, {foreignKey: 'pracId'});
 Usuario.belongsTo(ProgramaAcademico, {foreignKey: 'pracId'});
@@ -49,6 +51,14 @@ AccionMejora.belongsTo(Proceso, {foreignKey: 'procId'});
 TipoSituacion.hasMany(AccionMejora, {foreignKey: 'tisiId'});
 AccionMejora.belongsTo(TipoSituacion, {foreignKey: 'tisiId'});
 
+AccionMejora.hasMany(Tarea, {foreignKey: 'acmeId'});
+Tarea.belongsTo(AccionMejora, {foreignKey: 'acmeId'});
+
+Usuario.hasMany(Tarea, {foreignKey: 'usuaId'});
+Tarea.belongsTo(Usuario, {foreignKey: 'usuaId'});
+
+Responsable.hasMany(Tarea, {foreignKey: 'respId'});
+Tarea.belongsTo(Responsable, {foreignKey: 'respId'});
 
 
 module.exports = {
@@ -64,5 +74,7 @@ module.exports = {
     Proyecto,
     Proceso,
     TipoSituacion,
-    AccionMejora
+    AccionMejora,
+    Tarea,
+    Responsable
 };

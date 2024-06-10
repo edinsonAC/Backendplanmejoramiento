@@ -1,4 +1,4 @@
-const Responsable = require('../models/responsible_model')
+const {Responsable} = require('../models/associations_model')
 
 const createResponsible = async (req, res) => {
     const {respNombre} = req.body;
