@@ -183,4 +183,29 @@ router.post('/strategic-line', authenticateJWT, StrategicLineController.createSt
  */
 router.put('/strategic-line/:id', authenticateJWT, StrategicLineController.updateStrategicLine)
 
+
+/**
+ * @openapi
+ * /strategic-line/axis-strategic/{id}:
+ *   get:
+ *     tags:
+ *       - Lineas estrategicas
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/LineaEstrategica'
+ */
+router.get('/strategic-line/axis-strategic/:id', authenticateJWT, StrategicLineController.getStrategicLineAllByEjesId)
+
 module.exports = router

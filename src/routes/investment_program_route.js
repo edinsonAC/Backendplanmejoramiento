@@ -58,6 +58,8 @@ router.get('/investment-program/:id', authenticateJWT, InvestmentProgramControll
  *   get:
  *     tags:
  *       - Programa inversion
+ *     security:
+ *       - Authorization: []
  *     responses:
  *       200:
  *         description: OK

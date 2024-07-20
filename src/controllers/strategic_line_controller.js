@@ -1,4 +1,12 @@
-const {EjeEstrategico, LineaEstrategica} = require('../models/associations_model')
+const {
+    EjeEstrategico,
+    LineaEstrategica,
+    Proceso,
+    Factor,
+    TipoSituacion,
+    ProgramaInversion,
+    PlanMejoramiento
+} = require('../models/associations_model')
 
 const createStrategicLine = async (req, res) => {
     const {liesNombre, ejesId, liesObjetivos} = req.body;
@@ -32,6 +40,26 @@ const strategicLineById = async (req, res) => {
 const getStrategicLineAll = async (req, res) => {
     try {
         const lineas = await LineaEstrategica.findAll({include: EjeEstrategico});
+        if (lineas) {
+            res.json(lineas);
+        } else {
+            res.status(404).json({error: 'Linea not found'});
+        }
+    } catch (error) {
+        console.log("que sucede ? ", error)
+        res.status(500).json({error: 'Internal Server Error'});
+    }
+};
+
+const getStrategicLineAllByEjesId = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const lineas = await LineaEstrategica.findAll({
+            where: {ejesId: id},
+            include: [
+                EjeEstrategico
+            ]
+        });
         if (lineas) {
             res.json(lineas);
         } else {
@@ -81,5 +109,6 @@ module.exports = {
     createStrategicLine,
     strategicLineById,
     updateStrategicLine,
-    getStrategicLineAll
+    getStrategicLineAll,
+    getStrategicLineAllByEjesId
 }

@@ -1,4 +1,4 @@
-const {ProgramaInversion, LineaEstrategica} = require('../models/associations_model')
+const {ProgramaInversion, LineaEstrategica, EjeEstrategico} = require('../models/associations_model')
 
 const createInvestmentProgram = async (req, res) => {
     const {prinNombre, liesId} = req.body;
@@ -17,7 +17,16 @@ const createInvestmentProgram = async (req, res) => {
 const investmentProgramById = async (req, res) => {
     const id = req.params.id;
     try {
-        const program = await ProgramaInversion.findByPk(id, {include: LineaEstrategica});
+        const program = await ProgramaInversion.findByPk(id, {
+            include: [{
+                model: LineaEstrategica,
+                as: 'lineaEstrategica',
+                include: [{
+                    model: EjeEstrategico,
+                    as: 'ejeEstrategico'
+                }]
+            }]
+        });
         if (program) {
             res.json(program);
         } else {
@@ -30,7 +39,16 @@ const investmentProgramById = async (req, res) => {
 
 const getInvestmentProgramAll = async (req, res) => {
     try {
-        const programs = await ProgramaInversion.findAll({include: LineaEstrategica});
+        const programs = await ProgramaInversion.findAll({
+            include: [{
+                model: LineaEstrategica,
+                as: 'lineaEstrategica',
+                include: [{
+                    model: EjeEstrategico,
+                    as: 'ejeEstrategico'
+                }]
+            }]
+        });
         if (programs) {
             res.json(programs);
         } else {

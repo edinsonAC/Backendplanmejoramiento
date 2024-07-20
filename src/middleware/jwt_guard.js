@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const SECRET_JWT = process.env.SECRET_JWT;
 
 const authenticateJWT = (req, res, next) => {
-    console.log(" el middleware ----- ", req.headers)
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {

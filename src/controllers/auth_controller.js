@@ -91,7 +91,7 @@ const loginAdmin = async (req, res) => {
                         tius: 0
                     };
                     const token = generateJwt(payload)
-                    return res.status(200).json({token: 'Bearer ' + token});
+                    return res.status(200).json({usuario: userBd, token: 'Bearer ' + token});
                 } else {
                     res.status(401).json({error: 'Credentials incorrect'});
                 }
