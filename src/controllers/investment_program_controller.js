@@ -59,6 +59,26 @@ const getInvestmentProgramAll = async (req, res) => {
         res.status(500).json({error: 'Internal Server Error'});
     }
 };
+
+const getInvestmenProgramAllByLiesId = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const programs = await ProgramaInversion.findAll({
+            where: {liesId: id},
+            include: [
+                LineaEstrategica
+            ]
+        });
+        if (programs) {
+            res.json(programs);
+        } else {
+            res.status(404).json({error: 'No se encuentra el programa'});
+        }
+    } catch (error) {
+        res.status(500).json({error: 'Se ha producido un error listando los programas'});
+    }
+};
+
 // Controller method to update a todo by ID
 const updateInvestmentProgram = async (req, res) => {
     const id = req.params.id;
@@ -97,5 +117,6 @@ module.exports = {
     createInvestmentProgram,
     investmentProgramById,
     updateInvestmentProgram,
-    getInvestmentProgramAll
+    getInvestmentProgramAll,
+    getInvestmenProgramAllByLiesId
 }

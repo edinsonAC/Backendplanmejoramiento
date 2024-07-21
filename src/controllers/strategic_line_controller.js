@@ -18,8 +18,7 @@ const createStrategicLine = async (req, res) => {
         });
         res.status(201).json(newLinea);
     } catch (error) {
-        console.log("errrpr ", error)
-        res.status(500).json({error: 'Internal Server Error'});
+        res.status(500).json({error: 'Se ha producido un error creando la linea.'});
     }
 };
 // Controller method to get a todo by ID
@@ -33,7 +32,7 @@ const strategicLineById = async (req, res) => {
             res.status(404).json({error: 'Linea not found'});
         }
     } catch (error) {
-        res.status(500).json({error: 'Internal Server Error'});
+        res.status(500).json({error: 'Se ha producido error buscando la linea estrategica'});
     }
 };
 
@@ -46,8 +45,7 @@ const getStrategicLineAll = async (req, res) => {
             res.status(404).json({error: 'Linea not found'});
         }
     } catch (error) {
-        console.log("que sucede ? ", error)
-        res.status(500).json({error: 'Internal Server Error'});
+        res.status(500).json({error: 'Se ha producido un error listando las lineas estrategicas'});
     }
 };
 
@@ -63,11 +61,10 @@ const getStrategicLineAllByEjesId = async (req, res) => {
         if (lineas) {
             res.json(lineas);
         } else {
-            res.status(404).json({error: 'Linea not found'});
+            res.status(404).json({error: 'No se encuentr la linea'});
         }
     } catch (error) {
-        console.log("que sucede ? ", error)
-        res.status(500).json({error: 'Internal Server Error'});
+        res.status(500).json({error: 'Se ha producido un error listando las lineas estrategicas'});
     }
 };
 // Controller method to update a todo by ID

@@ -4,7 +4,7 @@ const {
     ProgramaInversion,
     Factor,
     TipoSituacion,
-    Proceso
+    Proceso, LineaEstrategica, EjeEstrategico
 } = require('../models/associations_model')
 
 const createImprovementAction = async (req, res) => {
@@ -26,26 +26,34 @@ const createImprovementAction = async (req, res) => {
 };
 // Controller method to get a todo by ID
 const improvementActionById = async (req, res) => {
-    const id = req.params.id;
-    try {
-        const todo = await AccionMejora.findByPk(id, {
-            include: [
-                Proceso,
-                Factor,
-                TipoSituacion,
-                ProgramaInversion,
-                PlanMejoramiento
-            ]
-        });
-        if (todo) {
-            res.json(todo);
-        } else {
-            res.status(404).json({error: 'Action not found'});
+        const id = req.params.id;
+        try {
+            const todo = await AccionMejora.findByPk(id, {
+                include: [
+                    Proceso,
+                    Factor,
+                    TipoSituacion,
+                    PlanMejoramiento,
+                    {
+                        model: ProgramaInversion,
+                        as: 'programaInversion',
+                        include: [{
+                            model: LineaEstrategica,
+                            as: 'lineaEstrategica'
+                        }]
+                    },
+                ]
+            });
+            if (todo) {
+                res.json(todo);
+            } else {
+                res.status(404).json({error: 'Action not found'});
+            }
+        } catch
+            (error) {
+            res.status(500).json({error: 'Internal Server Error'});
         }
-    } catch (error) {
-        res.status(500).json({error: 'Internal Server Error'});
-    }
-};
+    };
 
 
 const getImprovementActionAll = async (req, res) => {

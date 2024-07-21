@@ -174,4 +174,36 @@ router.post('/investment-program', authenticateJWT, InvestmentProgramController.
  */
 router.put('/investment-program/:id', authenticateJWT, InvestmentProgramController.updateInvestmentProgram)
 
+
+/**
+ * @openapi
+ * /investment-program/strategic-line/{id}:
+ *   get:
+ *     tags:
+ *       - Programa inversion
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        required: true
+ *        description: ID de la linea estrategica
+ *        schema:
+ *        type: number
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/ProgramaInversion'
+ */
+router.get('/investment-program/strategic-line/:id', authenticateJWT, InvestmentProgramController.getInvestmenProgramAllByLiesId)
+
 module.exports = router

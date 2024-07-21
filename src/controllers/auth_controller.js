@@ -71,7 +71,7 @@ const login = async (req, res) => {
 
     } catch (e) {
         console.log(" >>>>>>>>> ERROR ", e)
-        res.status(500).json({error: 'Internal Server Error'});
+        res.status(500).json({error: 'Se ha producido un error'});
     }
 }
 
@@ -145,7 +145,7 @@ const createUser = async (usuario) => {
 const generateJwt = (payload) => {
     try {
         const token = jwt.sign(payload, SECRET_JWT, {
-            expiresIn: 7200
+            expiresIn: 14400
         });
 
         return token
