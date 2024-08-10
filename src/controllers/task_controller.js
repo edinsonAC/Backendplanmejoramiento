@@ -39,8 +39,7 @@ const createTask = async (req, res) => {
         });
         res.status(201).json(newTask);
     } catch (error) {
-        console.log("errrpr ", error)
-        res.status(500).json({error: 'Internal Server Error'});
+        res.status(500).json({error: 'Se ha producido un erro creando la tarea.'});
     }
 };
 // Controller method to get a todo by ID
@@ -64,7 +63,6 @@ const taskById = async (req, res) => {
     }
 };
 
-
 const getTaskAll = async (req, res) => {
     try {
         const tasks = await Tarea.findAll({
@@ -77,11 +75,10 @@ const getTaskAll = async (req, res) => {
         if (tasks) {
             res.json(tasks);
         } else {
-            res.status(404).json({error: 'Task not found'});
+            res.status(404).json({error: 'No se han encontrado tareas relacionadas.'});
         }
     } catch (error) {
-        console.log("que sucede ? ", error)
-        res.status(500).json({error: 'Internal Server Error'});
+        res.status(500).json({error: 'Se ha producido un error buscando las tareas.'});
     }
 };
 
@@ -99,11 +96,10 @@ const getTaskByAcmeId = async (req, res) => {
         if (tasks) {
             res.json(tasks);
         } else {
-            res.status(404).json({error: 'Task not found'});
+            res.status(404).json({error: 'No se han encontrado tareas relacionadas.'});
         }
     } catch (error) {
-        console.log("que sucede ? ", error)
-        res.status(500).json({error: 'Internal Server Error'});
+        res.status(500).json({error: 'Se ha producido un error buscando las tareas.'});
     }
 };
 // Controller method to update a todo by ID
