@@ -32,6 +32,8 @@ const router = express.Router()
  *   get:
  *     tags:
  *       - Lineas estrategicas
+ *     security:
+ *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
@@ -61,6 +63,8 @@ router.get('/strategic-line/:id', authenticateJWT, StrategicLineController.strat
  *   get:
  *     tags:
  *       - Lineas estrategicas
+ *     security:
+ *       - Authorization: []
  *     responses:
  *       200:
  *         description: OK
@@ -85,6 +89,8 @@ router.get('/strategic-line', authenticateJWT, StrategicLineController.getStrate
  *   post:
  *     tags:
  *       - Lineas estrategicas
+ *     security:
+ *       - Authorization: []
  *     requestBody:
  *       description: Datos necesarios para crear un nuevo ítem
  *       required: true
@@ -134,6 +140,8 @@ router.post('/strategic-line', authenticateJWT, StrategicLineController.createSt
  *   put:
  *     tags:
  *       - Lineas estrategicas
+ *     security:
+ *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
@@ -190,6 +198,8 @@ router.put('/strategic-line/:id', authenticateJWT, StrategicLineController.updat
  *   get:
  *     tags:
  *       - Lineas estrategicas
+ *     security:
+ *       - Authorization: []
  *     responses:
  *       200:
  *         description: OK

@@ -43,6 +43,8 @@ const router = express.Router()
  *   get:
  *     tags:
  *       - Accion Mejora
+ *     security:
+ *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
@@ -72,6 +74,8 @@ router.get('/improvement-action/:id', authenticateJWT, ImprovementActionControll
  *   get:
  *     tags:
  *       - Accion Mejora
+ *     security:
+ *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
@@ -103,6 +107,8 @@ router.get('/improvement-action/improvement-plan/:id', authenticateJWT, Improvem
  *   get:
  *     tags:
  *       - Accion Mejora
+ *     security:
+ *       - Authorization: []
  *     responses:
  *       200:
  *         description: OK
@@ -127,6 +133,8 @@ router.get('/improvement-action', authenticateJWT, ImprovementActionController.g
  *   post:
  *     tags:
  *       - Accion Mejora
+ *     security:
+ *       - Authorization: []
  *     requestBody:
  *       description: Datos necesarios para crear un nuevo ítem
  *       required: true
@@ -193,6 +201,8 @@ router.post('/improvement-action', authenticateJWT, ImprovementActionController.
  *   put:
  *     tags:
  *       - Accion Mejora
+ *     security:
+ *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path

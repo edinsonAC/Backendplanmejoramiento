@@ -1,38 +1,52 @@
 'use strict'
 
 const express = require('express')
-const FactorTypeController = require('../controllers/factor_type_controller')
-const authenticateJWT = require('../middleware/jwt_guard')
+const DevelopmentController = require('../controllers/development_plan_controller')
 const router = express.Router()
+const authenticateJWT = require('../middleware/jwt_guard')
 
 /**
- * @openapi
+ * @swagger
  * components:
  *   schemas:
- *     TipoFactor:
+ *     securitySchemes:
+ *       Authorization:
+ *         type: "http"
+ *         scheme: "bearer"
+ *         bearerFormat: "JWT"
+ *         value: "Bearer <JWT token here>"
+ *
+ *     PlanDesarrollo:
  *       type: object
  *       properties:
  *         id:
  *           type: number
  *           example: 1
- *         tifaNombre:
+ *         pdiNombre:
  *           type: string
- *           example: Institucional
+ *           example: Plan de desarrollo
+ *         pdiDescripcion:
+ *           type: string
+ *           example: test descripcion
+ *         pdiPeriodo:
+ *           type: string
+ *           example: 2020-2030
  */
+
 
 /**
  * @openapi
- * /factor-type/{id}:
+ * /development-plan/{id}:
  *   get:
  *     tags:
- *       - Tipo factores
+ *       - Plan Desarrollo
  *     security:
  *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
  *        required: true
- *        description: ID del tipo factor
+ *        description: ID del plan
  *        schema:
  *        type: number
  *     responses:
@@ -47,16 +61,16 @@ const router = express.Router()
  *                   type: string
  *                   example: OK
  *                 data:
- *                   $ref: '#/components/schemas/TipoFactor'
+ *                   $ref: '#/components/schemas/PlanDesarrollo'
  */
-router.get('/factor-type/:id', authenticateJWT, FactorTypeController.factorTypeById)
+router.get('/development-plan/:id', authenticateJWT, DevelopmentController.developmentPlanById)
 
 /**
  * @openapi
- * /factor-type:
+ * /development-plan:
  *   get:
  *     tags:
- *       - Tipo factores
+ *       - Plan Desarrollo
  *     security:
  *       - Authorization: []
  *     responses:
@@ -73,16 +87,16 @@ router.get('/factor-type/:id', authenticateJWT, FactorTypeController.factorTypeB
  *                 data:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/TipoFactor'
+ *                     $ref: '#/components/schemas/PlanDesarrollo'
  */
-router.get('/factor-type', authenticateJWT, FactorTypeController.getFactorTypeAll)
+router.get('/development-plan', authenticateJWT, DevelopmentController.getDevelopmentPlanAll)
 
 /**
  * @openapi
- * /factor-type:
+ * /development-plan:
  *   post:
  *     tags:
- *       - Tipo factores
+ *       - Plan Desarrollo
  *     security:
  *       - Authorization: []
  *     requestBody:
@@ -93,19 +107,28 @@ router.get('/factor-type', authenticateJWT, FactorTypeController.getFactorTypeAl
  *           schema:
  *             type: object
  *             properties:
- *               tifaNombre:
+ *              pdiNombre:
  *                 type: string
- *                 example: "Institucional"
- *                 description: "El nombre del tipo factor"
+ *                 example: "Plan de desarrollo"
+ *                 description: "El nombre del plan"
+ *              pdiDescripcion:
+ *                 type: string
+ *                 example: "Descripcion de plan"
+ *                 description: "Descripcion de plan"
+ *              pdiPeriodo:
+ *                 type: string
+ *                 example: "2020-2030"
+ *                 description: "rango de duracion"
  *             required:
- *               - tifaNombre
+ *               - pdiNombre
+ *               - pdiDescripcion
  *     responses:
  *       201:
  *         description: OK
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/TipoFactor'
+ *               $ref: '#/components/schemas/PlanDesarrollo'
  *       500:
  *         description: Error interno del servidor
  *         content:
@@ -117,44 +140,53 @@ router.get('/factor-type', authenticateJWT, FactorTypeController.getFactorTypeAl
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/factor-type', authenticateJWT, FactorTypeController.createFactorType)
+router.post('/development-plan', authenticateJWT, DevelopmentController.createDevelopmentPlan)
 
 /**
  * @openapi
- * /factor-type/{id}:
+ * /development-plan/{id}:
  *   put:
  *     tags:
- *       - Tipo factores
+ *       - Plan Desarrollo
  *     security:
  *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
  *        required: true
- *        description: ID del tipo factor
+ *        description: ID del plan
  *        schema:
  *        type: number
  *     requestBody:
- *       description: Datos necesarios para crear un nuevo ítem
+ *       description: Datos necesarios para editar un nuevo ítem
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               tifaNombre:
+ *               pdiNombre:
  *                 type: string
- *                 example: "Institucional"
- *                 description: "El nombre del tipo de factor"
+ *                 example: "Plan de desarrollo"
+ *                 description: "El nombre del plan"
+ *               pdiDescripcion:
+ *                 type: string
+ *                 example: "test"
+ *                 description: "Descripcion del plan"
+ *               pdiPeriodo:
+ *                 type: string
+ *                 example: "2020-2030"
+ *                 description: "Descripcion del plan"
  *             required:
- *               - tifaNombre
+ *               - pdiNombre
+ *               - pdiDescripcion
  *     responses:
  *       200:
  *         description: OK
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/TipoFactor'
+ *               $ref: '#/components/schemas/PlanDesarrollo'
  *       500:
  *         description: Error interno del servidor
  *         content:
@@ -166,8 +198,7 @@ router.post('/factor-type', authenticateJWT, FactorTypeController.createFactorTy
  *                   type: string
  *                   example: "Error al editar el ítem"
  */
-router.put('/factor-type/:id', authenticateJWT, FactorTypeController.updateFactorType)
+router.put('/development-plan/:id', authenticateJWT, DevelopmentController.updateDevelopmentPlan)
 
-router.delete('/factor-type/:id', authenticateJWT, FactorTypeController.deleteAcademicProgram)
 
 module.exports = router

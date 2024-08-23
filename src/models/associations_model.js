@@ -14,12 +14,20 @@ const PlanMejoramiento = require("./improvement_plan_model")
 const Proyecto = require("./project_model")
 const AccionMejora = require("./improvement_action_model")
 const Tarea = require("./task_model")
+const Acuerdo = require("./agrement_model")
+const PlanDesarrolloInstitucional = require("./development_plan_model")
+
+PlanDesarrolloInstitucional.hasMany(EjeEstrategico, {foreignKey: 'pdiId'});
+EjeEstrategico.belongsTo(PlanDesarrolloInstitucional, {foreignKey: 'pdiId'});
 
 ProgramaAcademico.hasMany(Usuario, {foreignKey: 'pracId'});
 Usuario.belongsTo(ProgramaAcademico, {foreignKey: 'pracId'});
 
 TipoUsuario.hasMany(Usuario, {foreignKey: 'tiusId'});
 Usuario.belongsTo(TipoUsuario, {foreignKey: 'tiusId'});
+
+Acuerdo.hasMany(Factor, {foreignKey: 'acueId'});
+Factor.belongsTo(Acuerdo, {foreignKey: 'acueId'});
 
 TipoFactor.hasMany(Factor, {foreignKey: 'tifaId'});
 Factor.belongsTo(TipoFactor, {foreignKey: 'tifaId'});
@@ -76,5 +84,7 @@ module.exports = {
     TipoSituacion,
     AccionMejora,
     Tarea,
-    Responsable
+    Responsable,
+    Acuerdo,
+    PlanDesarrolloInstitucional
 };

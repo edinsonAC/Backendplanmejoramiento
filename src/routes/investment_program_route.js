@@ -29,6 +29,8 @@ const router = express.Router()
  *   get:
  *     tags:
  *       - Programa inversion
+ *     security:
+ *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
@@ -84,6 +86,8 @@ router.get('/investment-program', authenticateJWT, InvestmentProgramController.g
  *   post:
  *     tags:
  *       - Programa inversion
+ *     security:
+ *       - Authorization: []
  *     requestBody:
  *       description: Datos necesarios para crear un nuevo ítem
  *       required: true
@@ -129,6 +133,8 @@ router.post('/investment-program', authenticateJWT, InvestmentProgramController.
  *   put:
  *     tags:
  *       - Programa inversion
+ *     security:
+ *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
@@ -181,6 +187,8 @@ router.put('/investment-program/:id', authenticateJWT, InvestmentProgramControll
  *   get:
  *     tags:
  *       - Programa inversion
+ *     security:
+ *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path

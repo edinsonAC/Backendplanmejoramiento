@@ -13,12 +13,21 @@ const router = express.Router()
  *     Factor:
  *       type: object
  *       properties:
- *         id:
+ *        id:
  *           type: number
  *           example: 1
- *         factNombre:
+ *        factNombre:
  *           type: string
  *           example: Institucional
+ *        factDescripcion:
+ *           type: string
+ *           example: descripcion
+ *        tifaId:
+ *           type: number
+ *           example: 1
+ *        acueId:
+ *           type: number
+ *           example: 1
  */
 
 /**
@@ -27,6 +36,8 @@ const router = express.Router()
  *   get:
  *     tags:
  *       - Factores
+ *     security:
+ *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
@@ -56,6 +67,8 @@ router.get('/factor/:id', authenticateJWT, FactorController.factorById)
  *   get:
  *     tags:
  *       - Factores
+ *     security:
+ *       - Authorization: []
  *     responses:
  *       200:
  *         description: OK
@@ -80,6 +93,8 @@ router.get('/factor', authenticateJWT, FactorController.getFactorAll)
  *   post:
  *     tags:
  *       - Factores
+ *     security:
+ *       - Authorization: []
  *     requestBody:
  *       description: Datos necesarios para crear un nuevo ítem
  *       required: true
@@ -92,13 +107,22 @@ router.get('/factor', authenticateJWT, FactorController.getFactorAll)
  *                 type: string
  *                 example: "Prueba Factor"
  *                 description: "El nombre del factor"
+ *               factDescripion:
+ *                 type: string
+ *                 example: "Descripcion Factor"
+ *                 description: "La descripcion del factor"
  *               tifaId:
  *                 type: number
  *                 example: 1
  *                 description: "El id del tipo factor"
+ *               acueId:
+ *                 type: number
+ *                 example: 1
+ *                 description: "El id del acuerdo"
  *             required:
  *               - factNombre
  *               - tifaId
+ *               - factDescripcion
  *     responses:
  *       201:
  *         description: OK
@@ -125,6 +149,8 @@ router.post('/factor', authenticateJWT, FactorController.createFactor)
  *   put:
  *     tags:
  *       - Factores
+ *     security:
+ *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
@@ -144,13 +170,22 @@ router.post('/factor', authenticateJWT, FactorController.createFactor)
  *                 type: string
  *                 example: "Prueba factor"
  *                 description: "El nombre del factor"
+ *               factDescripcion:
+ *                 type: string
+ *                 example: "Prueba factor descripcion"
+ *                 description: "la descripcion del factor"
  *               tifaId:
  *                 type: number
  *                 example: 1
  *                 description: "El id del tipo factor"
+ *               acueId:
+ *                 type: number
+ *                 example: 1
+ *                 description: "El id del acuerdo"
  *             required:
  *               - factNombre
  *               - tifaId
+ *               - acueId
  *     responses:
  *       200:
  *         description: OK

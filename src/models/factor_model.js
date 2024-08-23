@@ -15,6 +15,11 @@ const Factor = sequelizeDb.define(
             allowNull: false,
             field: 'fact_nombre',
         },
+        factDescripcion: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            field: 'fact_descripcion',
+        },
         tifaId: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -22,6 +27,15 @@ const Factor = sequelizeDb.define(
             references: {
                 model: 'TipoFactor',
                 key: 'tifa_id'
+            }
+        },
+        acueId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            field: 'acue_id',
+            references: {
+                model: 'acuerdo',
+                key: 'acue_id'
             }
         },
         createdAt: {

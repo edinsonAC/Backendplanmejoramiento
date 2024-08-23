@@ -58,6 +58,8 @@ router.get('/process/:id', authenticateJWT, ProcessController.processById)
  *   get:
  *     tags:
  *       - Procesos
+ *     security:
+ *       - Authorization: []
  *     responses:
  *       200:
  *         description: OK
@@ -82,6 +84,8 @@ router.get('/process', authenticateJWT, ProcessController.getProcessAll)
  *   post:
  *     tags:
  *       - Procesos
+ *     security:
+ *       - Authorization: []
  *     requestBody:
  *       description: Datos necesarios para crear un nuevo ítem
  *       required: true
@@ -122,6 +126,8 @@ router.post('/process', authenticateJWT, ProcessController.createProcess)
  *   put:
  *     tags:
  *       - Procesos
+ *     security:
+ *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path

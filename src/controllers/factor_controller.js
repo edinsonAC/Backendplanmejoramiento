@@ -1,11 +1,13 @@
-const {Factor, TipoFactor} = require('../models/associations_model')
+const {Factor, TipoFactor, Acuerdo} = require('../models/associations_model')
 
 const createFactor = async (req, res) => {
-    const {factNombre, tifaId} = req.body;
+    const {factNombre, tifaId, factDescripcion, acueId} = req.body;
     try {
         const newFactor = await Factor.create({
             factNombre,
-            tifaId
+            factDescripcion,
+            tifaId,
+            acueId
         });
         res.status(201).json(newFactor);
     } catch (error) {
@@ -17,47 +19,48 @@ const createFactor = async (req, res) => {
 const factorById = async (req, res) => {
     const id = req.params.id;
     try {
-        const todo = await Factor.findByPk(id, {include: TipoFactor});
+        const todo = await Factor.findByPk(id, {include: [TipoFactor, Acuerdo]});
         if (todo) {
             res.json(todo);
         } else {
-            res.status(404).json({error: 'Factor not found'});
+            res.status(404).json({error: 'Ha ocurrido un error consultando el factor'});
         }
     } catch (error) {
-        res.status(500).json({error: 'Internal Server Error'});
+        res.status(500).json({error: 'Ha ocurrido un error consultando el factor'});
     }
 };
 
 
 const getFactorAll = async (req, res) => {
     try {
-        const factors = await Factor.findAll({include: TipoFactor});
+        const factors = await Factor.findAll({include: [TipoFactor, Acuerdo]});
         if (factors) {
             res.json(factors);
         } else {
-            res.status(404).json({error: 'Factor not found'});
+            res.status(404).json({error: 'Factor no se encuentra'});
         }
     } catch (error) {
-        console.log("que sucede ? ", error)
-        res.status(500).json({error: 'Internal Server Error'});
+        res.status(500).json({error: 'Ha ocurrido un error consultando los factores'});
     }
 };
 // Controller method to update a todo by ID
 const updateFactor = async (req, res) => {
     const id = req.params.id;
-    const {factNombre, tifaId} = req.body;
+    const {factNombre, tifaId, factDescripcion, acueId} = req.body;
     try {
         const fact = await Factor.findByPk(id);
         if (fact) {
             fact.factNombre = factNombre;
+            fact.factDescripcion = factDescripcion;
             fact.tifaId = tifaId;
+            fact.acueId = acueId;
             await fact.save();
             res.json(fact);
         } else {
-            res.status(404).json({error: 'Factor not found'});
+            res.status(404).json({error: 'Factor no se encuentra'});
         }
     } catch (error) {
-        res.status(500).json({error: 'Internal Server Error'});
+        res.status(500).json({error: 'Ha ocurrido un error actalizando el factor'});
     }
 };
 // Controller method to delete a todo by ID

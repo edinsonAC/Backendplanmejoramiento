@@ -18,6 +18,9 @@ const router = express.Router()
  *         ejesNombre:
  *           type: string
  *           example: Eje ejemplo
+ *         pdiId:
+ *           type: number
+ *           example: 1
  */
 
 /**
@@ -26,6 +29,8 @@ const router = express.Router()
  *   get:
  *     tags:
  *       - Ejes estrategicos
+ *     security:
+ *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
@@ -55,6 +60,8 @@ router.get('/strategic-axis/:id', authenticateJWT, StrategicAxisController.strat
  *   get:
  *     tags:
  *       - Ejes estrategicos
+ *     security:
+ *       - Authorization: []
  *     responses:
  *       200:
  *         description: OK
@@ -79,6 +86,8 @@ router.get('/strategic-axis', authenticateJWT, StrategicAxisController.getStrate
  *   post:
  *     tags:
  *       - Ejes estrategicos
+ *     security:
+ *       - Authorization: []
  *     requestBody:
  *       description: Datos necesarios para crear un nuevo ítem
  *       required: true
@@ -91,8 +100,13 @@ router.get('/strategic-axis', authenticateJWT, StrategicAxisController.getStrate
  *                 type: string
  *                 example: "Prueba eje"
  *                 description: "El nombre del eje"
+ *               pdiId:
+ *                 type: string
+ *                 example: 1
+ *                 description: "El id del plan de desarrollo"
  *             required:
  *               - ejesNombre
+ *               - pdiId
  *     responses:
  *       201:
  *         description: OK
@@ -119,6 +133,8 @@ router.post('/strategic-axis', authenticateJWT, StrategicAxisController.createSt
  *   put:
  *     tags:
  *       - Ejes estrategicos
+ *     security:
+ *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
@@ -138,8 +154,13 @@ router.post('/strategic-axis', authenticateJWT, StrategicAxisController.createSt
  *                 type: string
  *                 example: "Prueba eje"
  *                 description: "El nombre del eje"
+ *               pdiId:
+ *                 type: string
+ *                 example: "Prueba eje"
+ *                 description: "El nombre del eje"
  *             required:
  *               - ejesNombre
+ *               - pdiId
  *     responses:
  *       200:
  *         description: OK
@@ -159,5 +180,34 @@ router.post('/strategic-axis', authenticateJWT, StrategicAxisController.createSt
  *                   example: "Error al editar el ítem"
  */
 router.put('/strategic-axis/:id', authenticateJWT, StrategicAxisController.updateStrategicAxis)
+
+/**
+ * @openapi
+ * /strategic-axis/development-plan/{id}:
+ *   get:
+ *     tags:
+ *       - Ejes estrategicos
+ *     security:
+ *       - Authorization: []
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/EjeEstrategico'
+ */
+router.get('/strategic-axis/development-plan/:id', authenticateJWT, StrategicAxisController.getStrategicAxisByPDI)
+
+
+
 
 module.exports = router

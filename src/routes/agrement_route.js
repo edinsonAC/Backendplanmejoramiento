@@ -1,38 +1,49 @@
 'use strict'
 
 const express = require('express')
-const FactorTypeController = require('../controllers/factor_type_controller')
-const authenticateJWT = require('../middleware/jwt_guard')
+const AgrementController = require('../controllers/agrement_controller')
 const router = express.Router()
+const authenticateJWT = require('../middleware/jwt_guard')
 
 /**
- * @openapi
+ * @swagger
  * components:
  *   schemas:
- *     TipoFactor:
+ *     securitySchemes:
+ *       Authorization:
+ *         type: "http"
+ *         scheme: "bearer"
+ *         bearerFormat: "JWT"
+ *         value: "Bearer <JWT token here>"
+ *
+ *     Acuerdo:
  *       type: object
  *       properties:
  *         id:
  *           type: number
  *           example: 1
- *         tifaNombre:
+ *         acueNombre:
  *           type: string
- *           example: Institucional
+ *           example: Acreditacion
+ *         acueDescripcion:
+ *           type: string
+ *           example: test descripcion
  */
+
 
 /**
  * @openapi
- * /factor-type/{id}:
+ * /agrement/{id}:
  *   get:
  *     tags:
- *       - Tipo factores
+ *       - Acuerdos
  *     security:
  *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
  *        required: true
- *        description: ID del tipo factor
+ *        description: ID del acuerdo
  *        schema:
  *        type: number
  *     responses:
@@ -47,16 +58,16 @@ const router = express.Router()
  *                   type: string
  *                   example: OK
  *                 data:
- *                   $ref: '#/components/schemas/TipoFactor'
+ *                   $ref: '#/components/schemas/Acuerdo'
  */
-router.get('/factor-type/:id', authenticateJWT, FactorTypeController.factorTypeById)
+router.get('/agrement/:id', authenticateJWT, AgrementController.agrementById)
 
 /**
  * @openapi
- * /factor-type:
+ * /agrement:
  *   get:
  *     tags:
- *       - Tipo factores
+ *       - Acuerdos
  *     security:
  *       - Authorization: []
  *     responses:
@@ -73,16 +84,16 @@ router.get('/factor-type/:id', authenticateJWT, FactorTypeController.factorTypeB
  *                 data:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/TipoFactor'
+ *                     $ref: '#/components/schemas/Acuerdo'
  */
-router.get('/factor-type', authenticateJWT, FactorTypeController.getFactorTypeAll)
+router.get('/agrement', AgrementController.getAgrementAll)
 
 /**
  * @openapi
- * /factor-type:
+ * /agrement:
  *   post:
  *     tags:
- *       - Tipo factores
+ *       - Acuerdos
  *     security:
  *       - Authorization: []
  *     requestBody:
@@ -93,19 +104,24 @@ router.get('/factor-type', authenticateJWT, FactorTypeController.getFactorTypeAl
  *           schema:
  *             type: object
  *             properties:
- *               tifaNombre:
+ *               acueNombre:
  *                 type: string
- *                 example: "Institucional"
- *                 description: "El nombre del tipo factor"
+ *                 example: "Acreditacion"
+ *                 description: "El nombre del acuerdo"
+ *               acueDescripcion:
+ *                 type: string
+ *                 example: "Descripcion de acuerdo"
+ *                 description: "Descripcion de acuerdo"
  *             required:
- *               - tifaNombre
+ *               - acueNombre
+ *               - acueDescripcion
  *     responses:
  *       201:
  *         description: OK
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/TipoFactor'
+ *               $ref: '#/components/schemas/Acuerdo'
  *       500:
  *         description: Error interno del servidor
  *         content:
@@ -117,44 +133,49 @@ router.get('/factor-type', authenticateJWT, FactorTypeController.getFactorTypeAl
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/factor-type', authenticateJWT, FactorTypeController.createFactorType)
+router.post('/agrement', authenticateJWT, AgrementController.createAgrement)
 
 /**
  * @openapi
- * /factor-type/{id}:
+ * /agrement/{id}:
  *   put:
  *     tags:
- *       - Tipo factores
+ *       - Acuerdos
  *     security:
  *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
  *        required: true
- *        description: ID del tipo factor
+ *        description: ID del acuerdo
  *        schema:
  *        type: number
  *     requestBody:
- *       description: Datos necesarios para crear un nuevo ítem
+ *       description: Datos necesarios para editar un nuevo ítem
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               tifaNombre:
+ *               acueNombre:
  *                 type: string
- *                 example: "Institucional"
- *                 description: "El nombre del tipo de factor"
+ *                 example: "Acreditacion"
+ *                 description: "El nombre del acuerdo"
+ *               acueDescripcion:
+ *                 type: string
+ *                 example: "test"
+ *                 description: "Descripcion del acuerdo"
  *             required:
- *               - tifaNombre
+ *               - acueNombre
+ *               - acueDescripcion
  *     responses:
  *       200:
  *         description: OK
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/TipoFactor'
+ *               $ref: '#/components/schemas/Acuerdo'
  *       500:
  *         description: Error interno del servidor
  *         content:
@@ -166,8 +187,7 @@ router.post('/factor-type', authenticateJWT, FactorTypeController.createFactorTy
  *                   type: string
  *                   example: "Error al editar el ítem"
  */
-router.put('/factor-type/:id', authenticateJWT, FactorTypeController.updateFactorType)
+router.put('/agrement/:id', authenticateJWT, AgrementController.updateAgrement)
 
-router.delete('/factor-type/:id', authenticateJWT, FactorTypeController.deleteAcademicProgram)
 
 module.exports = router

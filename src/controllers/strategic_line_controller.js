@@ -1,11 +1,8 @@
 const {
     EjeEstrategico,
     LineaEstrategica,
-    Proceso,
-    Factor,
-    TipoSituacion,
     ProgramaInversion,
-    PlanMejoramiento
+    PlanDesarrolloInstitucional
 } = require('../models/associations_model')
 
 const createStrategicLine = async (req, res) => {
@@ -25,7 +22,16 @@ const createStrategicLine = async (req, res) => {
 const strategicLineById = async (req, res) => {
     const id = req.params.id;
     try {
-        const linea = await LineaEstrategica.findByPk(id, {include: EjeEstrategico});
+        const linea = await LineaEstrategica.findByPk(id, {
+            include: [{
+                model: EjeEstrategico,
+                as: 'ejeEstrategico',
+                include: [{
+                    model: PlanDesarrolloInstitucional,
+                    as: 'planDesarrolloInstitucional'
+                }]
+            }]
+        });
         if (linea) {
             res.json(linea);
         } else {
@@ -38,7 +44,16 @@ const strategicLineById = async (req, res) => {
 
 const getStrategicLineAll = async (req, res) => {
     try {
-        const lineas = await LineaEstrategica.findAll({include: EjeEstrategico});
+        const lineas = await LineaEstrategica.findAll({
+            include: [{
+                model: EjeEstrategico,
+                as: 'ejeEstrategico',
+                include: [{
+                    model: PlanDesarrolloInstitucional,
+                    as: 'planDesarrolloInstitucional'
+                }]
+            }]
+        });
         if (lineas) {
             res.json(lineas);
         } else {
@@ -52,12 +67,18 @@ const getStrategicLineAll = async (req, res) => {
 const getStrategicLineAllByEjesId = async (req, res) => {
     try {
         const id = req.params.id;
-        const lineas = await LineaEstrategica.findAll({
+        const lineas = await ProgramaInversion.findByPk(id, {
             where: {ejesId: id},
-            include: [
-                EjeEstrategico
-            ]
+            include: [{
+                model: EjeEstrategico,
+                as: 'ejeEstrategico',
+                include: [{
+                    model: PlanDesarrolloInstitucional,
+                    as: 'planDesarrollo'
+                }]
+            }]
         });
+
         if (lineas) {
             res.json(lineas);
         } else {
@@ -80,7 +101,7 @@ const updateStrategicLine = async (req, res) => {
             await line.save();
             res.json(line);
         } else {
-            res.status(404).json({error: 'Factor not found'});
+            res.status(404).json({error: 'Linea not found'});
         }
     } catch (error) {
         res.status(500).json({error: 'Internal Server Error'});
@@ -95,7 +116,7 @@ const deleteA = async (req, res) => {
             await item.destroy();
             res.json(item);
         } else {
-            res.status(404).json({error: 'Tipo Factor not found'});
+            res.status(404).json({error: 'Linea not found'});
         }
     } catch (error) {
         res.status(500).json({error: 'Internal Server Error'});

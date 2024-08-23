@@ -1,28 +1,24 @@
 const {DataTypes} = require('sequelize');
 const {sequelizeDb} = require('../config/database');
 
-const EjeEstrategico = sequelizeDb.define(
-    'ejeEstrategico',
+const Acuerdo = sequelizeDb.define(
+    'acuerdo',
     {
-        ejesId: {
+        acueId: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-            field: 'ejes_id',
+            field: 'acue_id',
         },
-        ejesNombre: {
+        acueNombre: {
             type: DataTypes.STRING,
             allowNull: false,
-            field: 'ejes_nombre',
+            field: 'acue_nombre',
         },
-        pdiId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            field: 'pdi_id',
-            references: {
-                model: 'planDesarrolloInstitucional',
-                key: 'pdi_id'
-            }
+        acueDescripcion: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            field: 'acue_descripcion',
         },
         createdAt: {
             type: DataTypes.DATE,
@@ -37,8 +33,8 @@ const EjeEstrategico = sequelizeDb.define(
     },
     {
         // Other model options go here
-        tableName: 'eje_estrategico',
+        tableName: 'acuerdo',
     },
 );
 
-module.exports = EjeEstrategico;
+module.exports = Acuerdo;
