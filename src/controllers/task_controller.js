@@ -19,9 +19,16 @@ const createTask = async (req, res) => {
         usuaId,
         respId,
         tareRecursos,
-        tareOrden
+        tareMetaPorcentual,
     } = req.body;
     try {
+
+        const tasks = await Tarea.findAll({where: {acmeId: acmeId}});
+        let tareOrden = 0
+        if (tasks) {
+            tareOrden = tasks.length + 1
+        }
+
         const newTask = await Tarea.create({
             tareNombre,
             tareDescripcion,
@@ -35,11 +42,13 @@ const createTask = async (req, res) => {
             usuaId,
             respId,
             tareRecursos,
-            tareOrden
+            tareOrden,
+            tareMetaPorcentual
         });
         res.status(201).json(newTask);
     } catch (error) {
-        res.status(500).json({error: 'Se ha producido un erro creando la tarea.'});
+        console.log("error ? ", error)
+        res.status(500).json({error: 'Se ha producido un error creando la tarea.'});
     }
 };
 // Controller method to get a todo by ID
@@ -118,7 +127,8 @@ const updateTask = async (req, res) => {
         usuaId,
         respId,
         tareRecursos,
-        tareOrden
+        tareOrden,
+        tareMetaPorcentual
     } = req.body;
     try {
         const task = await Tarea.findByPk(id);
@@ -136,13 +146,14 @@ const updateTask = async (req, res) => {
             task.respId = respId;
             task.tareRecursos = tareRecursos;
             task.tareOrden = tareOrden;
+            task.tareMetaPorcentual = tareMetaPorcentual
             await task.save();
             res.json(task);
         } else {
-            res.status(404).json({error: 'Factor not found'});
+            res.status(404).json({error: 'Tarea not found'});
         }
     } catch (error) {
-        res.status(500).json({error: 'Internal Server Error'});
+        res.status(500).json({error: 'Ha ocurrido un error actualizando la tarea'});
     }
 };
 

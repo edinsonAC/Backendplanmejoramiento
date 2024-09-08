@@ -1,4 +1,4 @@
-const {EjeEstrategico, PlanDesarrolloInstitucional} = require('../models/associations_model')
+const {EjeEstrategico, PlanDesarrolloInstitucional, PlanMejoramiento} = require('../models/associations_model')
 
 const createStrategicAxis = async (req, res) => {
     const {ejesNombre, pdiId} = req.body;
@@ -58,6 +58,28 @@ const getStrategicAxisByPDI = async (req, res) => {
     }
 };
 
+
+const getStrategicAxisByPlmeId = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const plme = await PlanMejoramiento.findByPk(id)
+        let pdi = 0
+        if (plme) {
+            pdi = plme.pdiId
+        }
+
+        const ejes = await EjeEstrategico.findAll({where: {pdiId: pdi}, include: PlanDesarrolloInstitucional});
+
+        if (ejes) {
+            res.json(ejes);
+        } else {
+            res.status(404).json({error: 'Ejes not found'});
+        }
+    } catch (error) {
+        res.status(500).json({error: 'Ha ocurrido un error listado los ejes.'});
+    }
+};
+
 // Controller method to update a todo by ID
 const updateStrategicAxis = async (req, res) => {
     const id = req.params.id;
@@ -66,7 +88,7 @@ const updateStrategicAxis = async (req, res) => {
         const eje = await EjeEstrategico.findByPk(id);
         if (eje) {
             eje.ejesNombre = ejesNombre;
-            pdiId.pdiId = pdiId;
+            eje.pdiId = pdiId;
             await eje.save();
             res.json(eje);
         } else {
@@ -82,5 +104,6 @@ module.exports = {
     strategicAxisById,
     updateStrategicAxis,
     getStrategicAxisAll,
-    getStrategicAxisByPDI
+    getStrategicAxisByPDI,
+    getStrategicAxisByPlmeId
 }

@@ -16,9 +16,16 @@ const AccionMejora = require("./improvement_action_model")
 const Tarea = require("./task_model")
 const Acuerdo = require("./agrement_model")
 const PlanDesarrolloInstitucional = require("./development_plan_model")
+const Ejecucion = require("./execution_model")
 
 PlanDesarrolloInstitucional.hasMany(EjeEstrategico, {foreignKey: 'pdiId'});
 EjeEstrategico.belongsTo(PlanDesarrolloInstitucional, {foreignKey: 'pdiId'});
+
+Tarea.hasMany(Ejecucion, {foreignKey: 'tareId'});
+Ejecucion.belongsTo(Tarea, {foreignKey: 'tareId'});
+
+PlanDesarrolloInstitucional.hasMany(PlanMejoramiento, {foreignKey: 'pdiId'});
+PlanMejoramiento.belongsTo(PlanDesarrolloInstitucional, {foreignKey: 'pdiId'});
 
 ProgramaAcademico.hasMany(Usuario, {foreignKey: 'pracId'});
 Usuario.belongsTo(ProgramaAcademico, {foreignKey: 'pracId'});
@@ -53,9 +60,6 @@ AccionMejora.belongsTo(Factor, {foreignKey: 'factId'});
 ProgramaInversion.hasMany(AccionMejora, {foreignKey: 'prinId'});
 AccionMejora.belongsTo(ProgramaInversion, {foreignKey: 'prinId'});
 
-Proceso.hasMany(AccionMejora, {foreignKey: 'procId'});
-AccionMejora.belongsTo(Proceso, {foreignKey: 'procId'});
-
 TipoSituacion.hasMany(AccionMejora, {foreignKey: 'tisiId'});
 AccionMejora.belongsTo(TipoSituacion, {foreignKey: 'tisiId'});
 
@@ -64,6 +68,9 @@ Tarea.belongsTo(AccionMejora, {foreignKey: 'acmeId'});
 
 Usuario.hasMany(Tarea, {foreignKey: 'usuaId'});
 Tarea.belongsTo(Usuario, {foreignKey: 'usuaId'});
+
+Usuario.hasMany(Ejecucion, {foreignKey: 'usuaId'});
+Ejecucion.belongsTo(Usuario, {foreignKey: 'usuaId'});
 
 Responsable.hasMany(Tarea, {foreignKey: 'respId'});
 Tarea.belongsTo(Responsable, {foreignKey: 'respId'});
@@ -86,5 +93,6 @@ module.exports = {
     Tarea,
     Responsable,
     Acuerdo,
-    PlanDesarrolloInstitucional
+    PlanDesarrolloInstitucional,
+    Ejecucion
 };

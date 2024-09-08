@@ -25,7 +25,9 @@ const projectRoute = require('./routes/project_route')
 const improvementActionRoute = require('./routes/improvement_action_route')
 const taskRoute = require('./routes/task_route')
 const agrementRoute = require('./routes/agrement_route')
-const developmentPlan = require('./routes/development_plan_route')
+const developmentPlanRoute = require('./routes/development_plan_route')
+const userRoute = require('./routes/user_route')
+const executionRoute = require('./routes/execution_route')
 
 //CORS
 // Configurar cabeceras y cors
@@ -40,7 +42,7 @@ app.use((req, res, next) => {
 //Añadir prefijos a rutas
 
 app.use('/', authRoute, userTypeRoute, processRoute, situationTypeRoute, responsibleRoute, improvementPlanRoute, projectRoute,
-    improvementActionRoute, taskRoute, agrementRoute, developmentPlan,
+    improvementActionRoute, taskRoute, agrementRoute, developmentPlanRoute, userRoute, executionRoute,
     academicProgramRoutes, factorTypeRoutes, factorRoutes, strategicAxisRoute, strategicLineRoute, investmentProgramRoute)
 
 module.exports = app;

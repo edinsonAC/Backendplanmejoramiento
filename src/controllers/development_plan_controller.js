@@ -31,8 +31,15 @@ const developmentPlanById = async (req, res) => {
 
 
 const getDevelopmentPlanAll = async (req, res) => {
+    const state = req.query.state
     try {
-        const todo = await PlanDesarrolloInstitucional.findAll();
+        let todo
+        if (state == undefined) {
+            todo = await PlanDesarrolloInstitucional.findAll();
+        } else {
+            todo = await PlanDesarrolloInstitucional.findAll({where: {pdiState: state}});
+        }
+
         if (todo) {
             res.json(todo);
         } else {
@@ -62,10 +69,28 @@ const updateDevelopmentPlan = async (req, res) => {
     }
 };
 
+const updateStateDevelopmentPlan = async (req, res) => {
+    const id = req.params.id;
+    const {pdiState} = req.body;
+    try {
+        const item = await PlanDesarrolloInstitucional.findByPk(id);
+        if (item) {
+            item.pdiState = pdiState;
+            await item.save();
+            res.json(item);
+        } else {
+            res.status(404).json({error: 'Acuerdo no encontrado'});
+        }
+    } catch (error) {
+        res.status(500).json({error: 'Ocurrio un error editando el acuerdo'});
+    }
+};
+
 
 module.exports = {
     createDevelopmentPlan,
     developmentPlanById,
     updateDevelopmentPlan,
-    getDevelopmentPlanAll
+    getDevelopmentPlanAll,
+    updateStateDevelopmentPlan
 }

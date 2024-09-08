@@ -19,6 +19,9 @@ const router = express.Router()
  *         acmeDescripcion:
  *           type: string
  *           example: Descripcion de la accion
+ *         acmePeso:
+ *           type: number
+ *           example: 22
  *         procId:
  *           type: number
  *           example: 1
@@ -147,6 +150,10 @@ router.get('/improvement-action', authenticateJWT, ImprovementActionController.g
  *                 type: string
  *                 example: "Descripcion"
  *                 description: "Descripcion de la accion de mejora"
+ *               acmePeso:
+ *                 type: number
+ *                 example: 25
+ *                 description: "Peso de la accion"
  *               procId:
  *                 type: number
  *                 example: 1
@@ -222,6 +229,10 @@ router.post('/improvement-action', authenticateJWT, ImprovementActionController.
  *                 type: string
  *                 example: "Descripcion"
  *                 description: "Descripcion de la accion de mejora"
+ *               acmePeso:
+ *                 type: number
+ *                 example: 25
+ *                 description: "Peso de la accion de mejora"
  *               procId:
  *                 type: number
  *                 example: 1
@@ -270,5 +281,43 @@ router.post('/improvement-action', authenticateJWT, ImprovementActionController.
  */
 router.put('/improvement-action/:id', authenticateJWT, ImprovementActionController.updateImprovementAction)
 
+/**
+ * @openapi
+ * /improvement-action/improvement-plan/{id}/factor/{factor}:
+ *   get:
+ *     tags:
+ *       - Accion Mejora
+ *     security:
+ *       - Authorization: []
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        required: true
+ *        description: ID del plan mejoramiento
+ *        schema:
+ *        type: number
+ *      - name: factor
+ *        in: path
+ *        required: true
+ *        description: ID del factor
+ *        schema:
+ *        type: number
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/AccionMejora'
+ */
+router.get('/improvement-action/improvement-plan/:id/factor/:factor', authenticateJWT, ImprovementActionController.getImprovementActionByPlmeIdAndFactId)
 
 module.exports = router

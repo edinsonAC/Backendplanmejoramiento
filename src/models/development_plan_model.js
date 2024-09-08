@@ -25,6 +25,11 @@ const PlanDesarrolloInstitucional = sequelizeDb.define(
             allowNull: false,
             field: 'pdi_periodo',
         },
+        pdiState: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            field: 'pdi_state',
+        },
         createdAt: {
             type: DataTypes.DATE,
             defaultValue: DataTypes.NOW,

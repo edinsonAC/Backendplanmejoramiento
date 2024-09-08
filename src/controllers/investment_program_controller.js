@@ -1,4 +1,10 @@
-const {ProgramaInversion, LineaEstrategica, EjeEstrategico} = require('../models/associations_model')
+const {
+    ProgramaInversion,
+    LineaEstrategica,
+    EjeEstrategico,
+    PlanDesarrolloInstitucional,
+    PlanMejoramiento
+} = require('../models/associations_model')
 
 const createInvestmentProgram = async (req, res) => {
     const {prinNombre, liesId} = req.body;
@@ -23,7 +29,11 @@ const investmentProgramById = async (req, res) => {
                 as: 'lineaEstrategica',
                 include: [{
                     model: EjeEstrategico,
-                    as: 'ejeEstrategico'
+                    as: 'ejeEstrategico',
+                    include: [{
+                        model: PlanDesarrolloInstitucional,
+                        as: 'planDesarrolloInstitucional'
+                    }]
                 }]
             }]
         });
@@ -79,6 +89,41 @@ const getInvestmenProgramAllByLiesId = async (req, res) => {
     }
 };
 
+const getInvestmenProgramAllByPlmeId = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const plme = await PlanMejoramiento.findByPk(id)
+        let pdi = 0
+        if (plme) {
+            pdi = plme.pdiId
+        }
+
+        const programs = await ProgramaInversion.findAll({
+            include: [
+                {
+                    model: LineaEstrategica,
+                    required: true,
+                    include: [
+                        {
+                            model: EjeEstrategico,
+                            required: true,
+                            where: {pdiId: pdi}
+                        }
+                    ]
+                }
+            ]
+        })
+        if (programs) {
+            res.json(programs);
+        } else {
+            res.status(404).json({error: 'No se encuentra el programa'});
+        }
+    } catch (error) {
+        console.log("?? ", error)
+        res.status(500).json({error: 'Se ha producido un error listando los programas'});
+    }
+};
+
 // Controller method to update a todo by ID
 const updateInvestmentProgram = async (req, res) => {
     const id = req.params.id;
@@ -118,5 +163,6 @@ module.exports = {
     investmentProgramById,
     updateInvestmentProgram,
     getInvestmentProgramAll,
-    getInvestmenProgramAllByLiesId
+    getInvestmenProgramAllByLiesId,
+    getInvestmenProgramAllByPlmeId,
 }

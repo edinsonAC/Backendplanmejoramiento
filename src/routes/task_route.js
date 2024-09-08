@@ -82,7 +82,7 @@ const router = express.Router()
  *                 data:
  *                   $ref: '#/components/schemas/Tarea'
  */
-router.get('/task/:id', TaskController.taskById)
+router.get('/task/:id', authenticateJWT, TaskController.taskById)
 
 /**
  * @openapi
@@ -113,7 +113,7 @@ router.get('/task/:id', TaskController.taskById)
  *                   items:
  *                     $ref: '#/components/schemas/Tarea'
  */
-router.get('/task/improvement-action/:id', TaskController.getTaskByAcmeId)
+router.get('/task/improvement-action/:id', authenticateJWT, TaskController.getTaskByAcmeId)
 
 /**
  * @openapi
@@ -137,7 +137,7 @@ router.get('/task/improvement-action/:id', TaskController.getTaskByAcmeId)
  *                   items:
  *                     $ref: '#/components/schemas/Tarea'
  */
-router.get('/task', TaskController.getTaskAll)
+router.get('/task', authenticateJWT, TaskController.getTaskAll)
 
 /**
  * @openapi
@@ -238,7 +238,7 @@ router.get('/task', TaskController.getTaskAll)
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/task', TaskController.createTask)
+router.post('/task', authenticateJWT, TaskController.createTask)
 
 /**
  * @openapi
@@ -346,7 +346,7 @@ router.post('/task', TaskController.createTask)
  *                   type: string
  *                   example: "Error al editar el ítem"
  */
-router.put('/task/:id', TaskController.updateTask)
+router.put('/task/:id', authenticateJWT, TaskController.updateTask)
 
 
 module.exports = router

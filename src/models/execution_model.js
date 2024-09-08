@@ -1,59 +1,56 @@
 const {DataTypes} = require('sequelize');
 const {sequelizeDb} = require('../config/database');
 
-const AccionMejora = sequelizeDb.define(
-    'accionMejora',
+const Ejecucion = sequelizeDb.define(
+    'ejecucion',
     {
-        acmeId: {
+        ejecId: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-            field: 'acme_id',
+            field: 'ejec_id',
         },
-        acmeDescripcion: {
+        ejecDescripcion: {
             type: DataTypes.STRING,
             allowNull: false,
-            field: 'acme_descripcion',
+            field: 'ejec_descripcion',
         },
-        acmePeso: {
+        ejecSemestre: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            field: 'acme_peso',
+            field: 'ejec_semestre',
         },
-        plmeId: {
+        ejecAnio: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            field: 'plme_id',
+            field: 'ejec_anio',
+        },
+        ejecAvance: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            field: 'ejec_avance',
+        },
+        ejecFechaEjecucion: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            field: 'ejec_fecha_ejecucion',
+        },
+        tareId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            field: 'tare_id',
             references: {
-                model: 'PlanMejoramiento',
-                key: 'plme_id'
+                model: 'Tarea',
+                key: 'tare_id'
             }
         },
-        factId: {
+        usuaId: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            field: 'fact_id',
+            field: 'usua_id',
             references: {
-                model: 'Factor',
-                key: 'fact_id'
-            }
-        },
-        tisiId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            field: 'tisi_id',
-            references: {
-                model: 'TipoSituacion',
-                key: 'tisi_id'
-            }
-        },
-        prinId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            field: 'prin_id',
-            references: {
-                model: 'ProgramaInversion',
-                key: 'prin_id'
+                model: 'Usuario',
+                key: 'usua_id'
             }
         },
         createdAt: {
@@ -69,8 +66,8 @@ const AccionMejora = sequelizeDb.define(
     },
     {
         // Other model options go here
-        tableName: 'accion_mejora',
+        tableName: 'ejecucion',
     },
 );
 
-module.exports = AccionMejora;
+module.exports = Ejecucion;

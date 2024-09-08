@@ -200,5 +200,55 @@ router.post('/development-plan', authenticateJWT, DevelopmentController.createDe
  */
 router.put('/development-plan/:id', authenticateJWT, DevelopmentController.updateDevelopmentPlan)
 
+/**
+ * @openapi
+ * /development-plan/update-state/{id}:
+ *   put:
+ *     tags:
+ *       - Plan Desarrollo
+ *     security:
+ *       - Authorization: []
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        required: true
+ *        description: ID del plan
+ *        schema:
+ *        type: number
+ *     requestBody:
+ *       description: Datos necesarios para editar un nuevo ítem
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               pdiState:
+ *                 type: boolean
+ *                 example: true
+ *                 description: "El estado del plan"
+ *             required:
+ *               - pdiState
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/PlanDesarrollo'
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Error al editar el ítem"
+ */
+router.put('/development-plan/update-state/:id', authenticateJWT, DevelopmentController.updateStateDevelopmentPlan)
+
+
 
 module.exports = router

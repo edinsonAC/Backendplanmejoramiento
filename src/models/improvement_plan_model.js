@@ -15,6 +15,15 @@ const PlanMejoramiento = sequelizeDb.define(
             allowNull: false,
             field: 'plme_nombre',
         },
+        pdiId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            field: 'pdi_id',
+            references: {
+                model: 'planDesarrolloInstitucional',
+                key: 'pdi_id'
+            }
+        },
         pracId: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -23,6 +32,26 @@ const PlanMejoramiento = sequelizeDb.define(
                 model: 'ProgramaAcademico',
                 key: 'prac_id'
             }
+        },
+        plmeSemestreInicio: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            field: 'plme_semestre_inicio',
+        },
+        plmeAnioInicio: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            field: 'plme_anio_inicio',
+        },
+        plmeSemestreFin: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            field: 'plme_semestre_fin',
+        },
+        plmeAnioFin: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            field: 'plme_anio_fin',
         },
         createdAt: {
             type: DataTypes.DATE,

@@ -21,14 +21,19 @@ const Tarea = sequelizeDb.define(
             field: 'tare_descripcion',
         },
         tarePeso: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false,
             field: 'tare_peso',
         },
         tareMeta: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
             field: 'tare_meta',
+        },
+        tareMetaPorcentual: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            field: 'tare_meta_porcentual',
         },
         tareLineaBase: {
             type: DataTypes.STRING,
@@ -37,12 +42,12 @@ const Tarea = sequelizeDb.define(
         },
         tareDocumentoLineaBase: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
             field: 'tare_documento_linea_base',
         },
         tareRecursos: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
             field: 'tare_recursos',
         },
         tareOrden: {

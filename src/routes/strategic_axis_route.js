@@ -207,7 +207,38 @@ router.put('/strategic-axis/:id', authenticateJWT, StrategicAxisController.updat
  */
 router.get('/strategic-axis/development-plan/:id', authenticateJWT, StrategicAxisController.getStrategicAxisByPDI)
 
-
+/**
+ * @openapi
+ * /strategic-axis/improvement-plan/{id}:
+ *   get:
+ *     tags:
+ *       - Ejes estrategicos
+ *     security:
+ *       - Authorization: []
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        required: true
+ *        description: ID del plan de mejoramiento
+ *        schema:
+ *        type: number
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/EjeEstrategico'
+ */
+router.get('/strategic-axis/improvement-plan/:id', authenticateJWT, StrategicAxisController.getStrategicAxisByPlmeId)
 
 
 module.exports = router

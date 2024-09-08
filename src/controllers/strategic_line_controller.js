@@ -67,14 +67,14 @@ const getStrategicLineAll = async (req, res) => {
 const getStrategicLineAllByEjesId = async (req, res) => {
     try {
         const id = req.params.id;
-        const lineas = await ProgramaInversion.findByPk(id, {
+        const lineas = await LineaEstrategica.findAll({
             where: {ejesId: id},
             include: [{
                 model: EjeEstrategico,
                 as: 'ejeEstrategico',
                 include: [{
                     model: PlanDesarrolloInstitucional,
-                    as: 'planDesarrollo'
+                    as: 'planDesarrolloInstitucional'
                 }]
             }]
         });
@@ -85,6 +85,7 @@ const getStrategicLineAllByEjesId = async (req, res) => {
             res.status(404).json({error: 'No se encuentr la linea'});
         }
     } catch (error) {
+        console.log("errr ", error)
         res.status(500).json({error: 'Se ha producido un error listando las lineas estrategicas'});
     }
 };

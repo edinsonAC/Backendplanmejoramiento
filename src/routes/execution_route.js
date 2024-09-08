@@ -1,7 +1,7 @@
 'use strict'
 
 const express = require('express')
-const ImprovementPlanController = require('../controllers/improvement_plan_controller')
+const ExecutionController = require('../controllers/execution_controller')
 const authenticateJWT = require('../middleware/jwt_guard')
 const router = express.Router()
 
@@ -10,45 +10,46 @@ const router = express.Router()
  * @openapi
  * components:
  *   schemas:
- *     PlanMejoramiento:
+ *     Ejecucion:
  *       type: object
  *       properties:
- *         id:
+ *         ejecId:
  *           type: number
  *           example: 1
- *         plmeNombre:
+ *         ejecDescripcion:
  *           type: string
- *           example: Institucional
- *         pracId:
+ *           example: Descripcion de la tarea
+ *         ejecAvance:
+ *           type: string
+ *           example: avance de la ejecucion
+ *         ejecFechaEjecucion:
+ *           type: string
+ *           example: 2024-06-02
+ *         usuaId:
  *           type: number
  *           example: 1
- *         plmeAnioIncio:
+ *         ejecSemestre:
+ *           type: number
+ *           example: 1
+ *         ejecAnio:
  *           type: number
  *           example: 2022
- *         plmeAnioFin:
- *           type: number
- *           example: 2030
- *         plmeSemestreFin:
- *           type: number
- *           example: 2
- *         plmeSemestreInicio:
- *           type: number
- *           example: 1
+ *
  */
 
 /**
  * @openapi
- * /improvement-plan/{id}:
+ * /execution/{id}:
  *   get:
  *     tags:
- *       - Plan Mejoramiento
+ *       - Ejecucion
  *     security:
  *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
  *        required: true
- *        description: ID del plan
+ *        description: ID de la ejecucion
  *        schema:
  *        type: number
  *     responses:
@@ -63,23 +64,23 @@ const router = express.Router()
  *                   type: string
  *                   example: OK
  *                 data:
- *                   $ref: '#/components/schemas/PlanMejoramiento'
+ *                   $ref: '#/components/schemas/Ejecucion'
  */
-router.get('/improvement-plan/:id', authenticateJWT, ImprovementPlanController.improvementPlanById)
+router.get('/execution/:id', authenticateJWT, ExecutionController.executionById)
 
 /**
  * @openapi
- * /improvement-plan/academic-program/{id}:
+ * /execution/task/{id}:
  *   get:
  *     tags:
- *       - Plan Mejoramiento
+ *       - Ejecucion
  *     security:
  *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
  *        required: true
- *        description: ID del programa academico
+ *        description: ID de la tarea
  *        schema:
  *        type: number
  *     responses:
@@ -96,16 +97,16 @@ router.get('/improvement-plan/:id', authenticateJWT, ImprovementPlanController.i
  *                 data:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/PlanMejoramiento'
+ *                     $ref: '#/components/schemas/Ejecucion'
  */
-router.get('/improvement-plan/academic-program/:id', authenticateJWT, ImprovementPlanController.getImprovementPlanByPracId)
+router.get('/execution/task/:id', authenticateJWT, ExecutionController.getExecutionsByTareId)
 
 /**
  * @openapi
- * /improvement-plan:
+ * /execution:
  *   get:
  *     tags:
- *       - Plan Mejoramiento
+ *       - Ejecucion
  *     security:
  *       - Authorization: []
  *     responses:
@@ -122,16 +123,16 @@ router.get('/improvement-plan/academic-program/:id', authenticateJWT, Improvemen
  *                 data:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/PlanMejoramiento'
+ *                     $ref: '#/components/schemas/Ejecucion'
  */
-router.get('/improvement-plan', authenticateJWT, ImprovementPlanController.getImprovementPlanAll)
+router.get('/execution', authenticateJWT, ExecutionController.getExecutionsAll)
 
 /**
  * @openapi
- * /improvement-plan:
+ * /execution:
  *   post:
  *     tags:
- *       - Plan Mejoramiento
+ *       - Ejecucion
  *     security:
  *       - Authorization: []
  *     requestBody:
@@ -142,36 +143,50 @@ router.get('/improvement-plan', authenticateJWT, ImprovementPlanController.getIm
  *           schema:
  *             type: object
  *             properties:
- *               plmeNombre:
+ *               ejecDescripcion:
  *                 type: string
- *                 example: "Prueba Plan"
- *                 description: "El nombre del plan"
- *               pracId:
+ *                 example: "Descripcion"
+ *                 description: "Descripcion de la ejecucion"
+ *               ejecAvance:
+ *                 type: string
+ *                 example: "25%"
+ *                 description: "avance de la ejecucion"
+ *               tareId:
  *                 type: number
  *                 example: 1
- *                 description: "El id del programa academico"
- *               plmeAnioInicio:
+ *                 description: "El id de la tarea"
+ *               ejecFechaEjecucion:
+ *                 type: string
+ *                 example: "2024-06-02"
+ *                 description: "fecha de la ejecucion"
+ *               usuaId:
  *                 type: number
- *                 example: 2020
- *                 description: "Año inicial del plan"
- *               plmeAnioFin:
+ *                 example: 1
+ *                 description: "El id del usuario"
+ *               ejecSemestre:
  *                 type: number
- *                 example: 2030
- *                 description: "Año final del plan"
+ *                 example: 1
+ *                 description: "semestre del año"
+ *               ejecAnio:
+ *                 type: number
+ *                 example: 2023
+ *                 description: "Año"
  *             required:
- *               - plmeNombre
- *               - pracId
- *               - plmeSemestreInicio
- *               - plmeSemestreFin
- *               - plmeAnioInicio
- *               - plmeAnioFin
+ *               - ejecDescripcion
+ *               - ejecAvance
+ *               - tareId
+ *               - ejecFechaEjecucion
+ *               - ejecSemestre
+ *               - ejecAnio
+ *               - usuaId
+ *
  *     responses:
  *       201:
  *         description: OK
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/PlanMejoramiento'
+ *               $ref: '#/components/schemas/Ejecucion'
  *       500:
  *         description: Error interno del servidor
  *         content:
@@ -183,69 +198,75 @@ router.get('/improvement-plan', authenticateJWT, ImprovementPlanController.getIm
  *                   type: string
  *                   example: "Error al crear el ítem"
  */
-router.post('/improvement-plan', authenticateJWT, ImprovementPlanController.createImprovementPlan)
+router.post('/execution', authenticateJWT, ExecutionController.createExecution)
 
 /**
  * @openapi
- * /improvement-plan/{id}:
+ * /execution/{id}:
  *   put:
  *     tags:
- *       - Plan Mejoramiento
+ *       - Ejecucion
  *     security:
  *       - Authorization: []
  *     parameters:
  *      - name: id
  *        in: path
  *        required: true
- *        description: ID del plan
+ *        description: ID de la ejecucion
  *        schema:
  *        type: number
  *     requestBody:
- *       description: Datos necesarios para crear un nuevo ítem
+ *       description: Datos necesarios para editar un ítem
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               plmeNombre:
+ *               ejecDescripcion:
  *                 type: string
- *                 example: "Prueba factor"
- *                 description: "El nombre del plan"
- *               pracId:
+ *                 example: "Descripcion"
+ *                 description: "Descripcion de la ejecucion"
+ *               ejecAvance:
+ *                 type: string
+ *                 example: "25%"
+ *                 description: "Avance de la ejecucion"
+ *               tareId:
  *                 type: number
  *                 example: 1
- *                 description: "El id del programa academico"
- *               plmeAnioInicio:
- *                 type: number
- *                 example: 2022
- *                 description: "El año inicial del plan"
- *               plmeAnioFin:
- *                 type: number
- *                 example: 2030
- *                 description: "El año final del plan"
- *               plmeSemestreInicio:
+ *                 description: "El id de la tarea"
+ *               ejecFechaEjecucion:
+ *                 type: string
+ *                 example: "2024-06-02"
+ *                 description: "fecha de la ejecucion"
+ *               usuaId:
  *                 type: number
  *                 example: 1
- *                 description: "El semestre del año inicial del plan"
- *               plmeSemestreFin:
+ *                 description: "El id del usuario"
+ *               ejecSemestre:
  *                 type: number
  *                 example: 1
- *                 description: "El semestre del año final del plan"
+ *                 description: "semestre de la ejecucion"
+ *               ejecAnio:
+ *                 type: number
+ *                 example: 1
+ *                 description: "Año de la ejecucion"
  *             required:
- *               - plmeNombre
- *               - pracId
- *               - plmeAnioInicio
- *               - plmeAnioFin
- *               - plmeSemestreInicio
- *               - plmeSemestreFin
+ *               - ejecDescripcion
+ *               - ejecAvance
+ *               - tareId
+ *               - ejecFechaEjecucion
+ *               - usuaId
+ *               - ejecSemestre
+ *               - ejecAnio
+ *
  *     responses:
  *       200:
  *         description: OK
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/PlanMejoramiento'
+ *               $ref: '#/components/schemas/Ejecucion'
  *       500:
  *         description: Error interno del servidor
  *         content:
@@ -257,7 +278,7 @@ router.post('/improvement-plan', authenticateJWT, ImprovementPlanController.crea
  *                   type: string
  *                   example: "Error al editar el ítem"
  */
-router.put('/improvement-plan/:id', authenticateJWT, ImprovementPlanController.updateImprovementPlan)
+router.put('/execution/:id', ExecutionController.updateExecution)
 
 
 module.exports = router
